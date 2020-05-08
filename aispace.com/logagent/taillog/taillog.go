@@ -2,6 +2,7 @@ package taillog
 
 import (
 	"fmt"
+
 	"github.com/hpcloud/tail"
 )
 
