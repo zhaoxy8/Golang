@@ -1,9 +1,11 @@
 package main
 
 import (
+	"fmt"
+	"time"
+
 	"aispace.com/logagent/kafka"
 	"aispace.com/logagent/taillog"
-	"time"
 )
 
 func run() {
