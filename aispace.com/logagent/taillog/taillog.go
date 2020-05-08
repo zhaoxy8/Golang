@@ -9,7 +9,7 @@ import (
 var tailObj *tail.Tail
 
 func Init(filename string) (err error) {
-	tailObj, err := tail.TailFile(filename, tail.Config{
+	tailObj, err = tail.TailFile(filename, tail.Config{
 		ReOpen:    true,
 		Follow:    true,
 		Location:  &tail.SeekInfo{Offset: 0, Whence: 2},

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"aispace.com/logagent/kafka"
-	"aispace.com/logagent/taillog"
+	"Golong/aispace.com/logagent/kafka"
+	"Golong/aispace.com/logagent/taillog"
 )
 
 func run() {
@@ -13,6 +13,7 @@ func run() {
 		select {
 		case line := <-taillog.ReadChan():
 			fmt.Println("line:", line.Text)
+			kafka.SendMsg("web_log", line.Text)
 		default:
 			time.Sleep(100 * time.Millisecond)
 		}
@@ -21,7 +22,7 @@ func run() {
 func main() {
 	taillog.Init("./my.log")
 	fmt.Println("taillog init success")
-	kafka.Init([]string{"11.81.1.194:9092", "11.81.1.46:9092"})
+	kafka.Init([]string{"11.81.1.194:9092"})
 	fmt.Println("kafka init success")
 	run()
 }
