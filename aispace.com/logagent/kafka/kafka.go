@@ -8,6 +8,7 @@ import (
 
 var client sarama.SyncProducer
 
+//Init 初始化kafka连接的client
 func Init(hosts []string) (err error) {
 	config := sarama.NewConfig()
 	config.Producer.RequiredAcks = sarama.WaitForAll          // 发送完数据需要leader和follow都确认
@@ -22,6 +23,7 @@ func Init(hosts []string) (err error) {
 	return
 }
 
+//SendMsg 向topic中发送数据
 func SendMsg(topic, line string) {
 	// 构造一个消息
 	msg := &sarama.ProducerMessage{}
