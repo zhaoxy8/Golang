@@ -7,6 +7,7 @@ import (
 	"Golong/aispace.com/logagent/conf"
 	"Golong/aispace.com/logagent/kafka"
 	"Golong/aispace.com/logagent/taillog"
+	"gopkg.in/ini.v1"
 )
 
 var (
@@ -26,7 +27,7 @@ func run() {
 }
 
 func main() {
-	err := init.MapTo(cfg, "./conf.ini")
+	err := ini.MapTo(cfg, "./conf.ini")
 	if err != nil {
 		fmt.Printf("load conf.init failed", err)
 	}
