@@ -31,9 +31,15 @@ func main() {
 	if err != nil {
 		fmt.Printf("load conf.init failed", err)
 	}
-	taillog.Init(cfg.TaillogConf.Path)
+	err = taillog.Init(cfg.TaillogConf.Path)
+	if err != nil {
+		fmt.Printf("taillog init failed", err)
+	}
 	fmt.Println("taillog init success")
-	kafka.Init(cfg.KafkaConf.Address)
+	err = kafka.Init(cfg.KafkaConf.Address)
+	if err != nil {
+		fmt.Printf("kafka init failed", err)
+	}
 	fmt.Println("kafka init success")
 	run()
 }
