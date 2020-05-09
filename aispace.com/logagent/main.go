@@ -4,25 +4,27 @@ import (
 	"fmt"
 	"time"
 
+	"Golong/aispace.com/logagent/conf"
 	"Golong/aispace.com/logagent/kafka"
 	"Golong/aispace.com/logagent/taillog"
 )
 
-func run() {
+func run(conf *conf.Conf) {
 	for true {
 		select {
 		case line := <-taillog.ReadChan():
 			fmt.Println("line:", line.Text)
-			kafka.SendMsg("web_log", line.Text)
+			kafka.SendMsg(conf.Topic, line.Text)
 		default:
 			time.Sleep(100 * time.Millisecond)
 		}
 	}
 }
 func main() {
-	taillog.Init("./my.log")
+	conf := conf.NewConf("conf.ini")
+	taillog.Init(conf.Path)
 	fmt.Println("taillog init success")
-	kafka.Init([]string{"11.81.1.194:9092"})
+	kafka.Init(conf.Hosts)
 	fmt.Println("kafka init success")
-	run()
+	run(conf)
 }
