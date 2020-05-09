@@ -26,7 +26,7 @@ func run() {
 }
 
 func main() {
-	err = init.MapTo(cfg, "./conf.ini")
+	err := init.MapTo(cfg, "./conf.ini")
 	if err != nil {
 		fmt.Printf("load conf.init failed", err)
 	}
