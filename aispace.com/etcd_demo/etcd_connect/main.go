@@ -21,7 +21,8 @@ func main() {
 	defer cli.Close()
 	//put
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
-	_, err = cli.Put(ctx, "/logpath", "wanglei")
+	value := `{"logpath":[{"/var/lib/docker/containers":"dockerlog"},{"/var/log/syslog":"systemlog"}]}`
+	_, err = cli.Put(ctx, "/logpath", value)
 	cancel()
 	if err != nil {
 		fmt.Printf("put to etcd failed, err:%v\n", err)
