@@ -2,14 +2,22 @@ package conf
 
 //Conf ...
 type Conf struct {
-	KafkaConf   `ini:"kafka"`
-	TaillogConf `ini:"taillog"`
+	KafkaConf `ini:"kafka"`
+	EtcdConf  `ini:"etcd"`
 }
 
+//KafkaConf ...
 type KafkaConf struct {
 	Address []string `ini:"hosts"`
-	Topic   string   `ini:"topic"`
 }
-type TaillogConf struct {
-	Path string `ini:"path"`
+
+//EtcdConf ...
+type EtcdConf struct {
+	Address []string `ini:"address"`
+	Timeout int      `ini:"timeout"`
 }
+
+//TaillogConf ...
+// type TaillogConf struct {
+// 	Path string `ini:"path"`
+// }
