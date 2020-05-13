@@ -15,6 +15,7 @@ type KafkaConf struct {
 type EtcdConf struct {
 	Address []string `ini:"address"`
 	Timeout int      `ini:"timeout"`
+	Logkey  string   `ini:"logkey"`
 }
 
 //TaillogConf ...

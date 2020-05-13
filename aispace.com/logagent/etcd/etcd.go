@@ -19,7 +19,7 @@ type LogEntry struct {
 
 //Init 初始化etcd cli客户端
 func Init(hosts []string, timeout int) (err error) {
-	fmt.Println(hosts)
+	// fmt.Println(hosts)
 	cli, err = clientv3.New(clientv3.Config{
 		Endpoints:   hosts,
 		DialTimeout: time.Duration(timeout) * time.Second,
