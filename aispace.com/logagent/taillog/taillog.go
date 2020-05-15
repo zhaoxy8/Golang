@@ -6,7 +6,7 @@ import (
 	"github.com/hpcloud/tail"
 )
 
-z//TailTask 存储每个tailobj的结构体 tailobj真正打开文件去读取日志
+//TailTask 存储每个tailobj的结构体 tailobj真正打开文件去读取日志
 type TailTask struct {
 	Path    string
 	Topic   string
