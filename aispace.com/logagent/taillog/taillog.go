@@ -33,7 +33,6 @@ func NewTailTask(path string, topic string) *TailTask {
 	if err != nil {
 		fmt.Println("NewTailTask err:", err)
 	}
-	tailtask.init(path)
 	return tailtask
 }
 
