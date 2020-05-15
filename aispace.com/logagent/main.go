@@ -1,9 +1,9 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"sync"
-	"time"
 
 	"Golong/aispace.com/logagent/conf"
 	"Golong/aispace.com/logagent/etcd"
@@ -20,16 +20,7 @@ var (
 )
 
 func run(tailpath string, tailline <-chan *tail.Line) {
-	defer wg.Done()
-	for true {
-		select {
-		case line := <-tailline:
-			fmt.Printf("%s line:%s\n", tailpath, line.Text)
-			// kafka.SendMsg(cfg.KafkaConf.Topic, line.Text)
-		default:
-			time.Sleep(100 * time.Millisecond)
-		}
-	}
+
 }
 
 func main() {
@@ -60,13 +51,20 @@ func main() {
 	// 2.2 派一个哨兵监控日志项的变化，实现热加载
 
 	// 3.使用taillog读取path中的日志发送到kafka
+	wg.Add(len(logEntry))
+	tailtaskmgrsli := make([]*taillog.TailTaskMgr, len(logEntry))
 	for _, v := range logEntry {
 		// fmt.Println(v.Path, v.Topic)
 		tailtask := taillog.NewTailTask(v.Path, v.Topic)
-		wg.Add(len(logEntry))
-		go run(tailtask.Path, tailtask.ReadChan())
+		ctx, cancel := context.WithCancel(context.Background())
+		defer cancel()
+		tailtaskmgr := taillog.NewTailTaskMgr(tailtask)
+		tailtaskmgr.Run(ctx)
+		tailtaskmgrsli = append(tailtaskmgrsli, tailtaskmgr)
 	}
+
 	wg.Wait()
+
 	// 3.1 构造一个tailobj的切片每个切片做一个goroute去读取数据
 	// run()
 }
