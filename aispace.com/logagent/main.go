@@ -38,8 +38,9 @@ func main() {
 	logEntry, err := etcd.GetConf(cfg.EtcdConf.Logkey, cfg.EtcdConf.Timeout)
 	// fmt.Printf("%#v\n", logEntry)
 	// 2.2 派一个哨兵监控日志项的变化，实现热加载
-	taillog.Init(logEntry)
+
 	// 3.使用taillog读取path中的日志发送到kafka
+	taillog.Init(logEntry)
 	wg.Add(len(logEntry))
 
 	wg.Wait()
