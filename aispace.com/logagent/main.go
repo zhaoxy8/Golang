@@ -59,7 +59,7 @@ func main() {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
 		tailtaskmgr := taillog.NewTailTaskMgr(tailtask)
-		tailtaskmgr.Run(ctx)
+		go tailtaskmgr.Run(ctx)
 		tailtaskmgrsli = append(tailtaskmgrsli, tailtaskmgr)
 	}
 
