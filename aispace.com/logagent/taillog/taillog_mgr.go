@@ -1,46 +1,40 @@
 package taillog
 
 import (
+	"context"
 	"fmt"
-
-	"github.com/hpcloud/tail"
+	"time"
 )
 
-//TailTask 存储每个tailobj的结构体
-type TailTask struct {
-	Path    string
-	Topic   string
-	Intance *tail.Tail
+//TailTaskMgr 存储每个path 和 对应的tailtask读取日志任务
+type TailTaskMgr struct {
+	Path     string
+	Topic    string
+	TailTask *TailTask
 }
 
 //NewTailTask 构造方法
-func NewTailTask(path string, topic string) *TailTask {
-	tailtask := &TailTask{
-		Path:  path,
-		Topic: topic,
+func NewTailTaskMgr(tailtask *TailTask) *TailTaskMgr {
+	tailtaskmgr := &TailTaskMgr{
+		Path:     tailtask.Path,
+		Topic:    tailtask.Topic,
+		TailTask: tailtask,
 	}
-	tailtask.init(path)
-	return tailtask
+	// go tailtaskmgr.Run()
+	return tailtaskmgr
 }
 
-//init 创建日志文件管理任务对象
-func (t *TailTask) init(filename string) (err error) {
-	tailObj, err := tail.TailFile(filename, tail.Config{
-		ReOpen:    true,
-		Follow:    true,
-		Location:  &tail.SeekInfo{Offset: 0, Whence: 2},
-		MustExist: false,
-		Poll:      true,
-	})
-	t.Intance = tailObj
-	if err != nil {
-		fmt.Println("tail file err:", err)
-		return
+//ReadChan 从文件对象中读取数据返回只读chan Line //Intance = tailobj
+func (ttm *TailTaskMgr) Run(ctx context.Context) {
+	for true {
+		select {
+		case line := <-ttm.TailTask.Intance.Lines:
+			fmt.Printf("%s line:%s\n", ttm.Path, line.Text)
+		// kafka.SendMsg(cfg.KafkaConf.Topic, line.Text)
+		case <-ctx.Done(): // 等待上级通知
+			break
+		default:
+			time.Sleep(100 * time.Millisecond)
+		}
 	}
-	return
-}
-
-//ReadChan 从文件对象中读取数据返回一个Line结构体型只读chan Line
-func (t *TailTask) ReadChan() <-chan *tail.Line {
-	return t.Intance.Lines
 }
