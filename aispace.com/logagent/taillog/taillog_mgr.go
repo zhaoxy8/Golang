@@ -13,18 +13,18 @@ type TailTaskMgr struct {
 	TailTask *TailTask
 }
 
-//NewTailTask 构造方法
-func NewTailTaskMgr(tailtask *TailTask) *TailTaskMgr {
+//NewTailTaskMgr 构造方法
+func NewTailTaskMgr(ctx context.Context, tailtask *TailTask) *TailTaskMgr {
 	tailtaskmgr := &TailTaskMgr{
 		Path:     tailtask.Path,
 		Topic:    tailtask.Topic,
 		TailTask: tailtask,
 	}
-	// go tailtaskmgr.Run()
+	go tailtaskmgr.Run(ctx)
 	return tailtaskmgr
 }
 
-//ReadChan 从文件对象中读取数据返回只读chan Line //Intance = tailobj
+//Run 从文件对象中读取数据返回只读chan Line //Intance = tailobj
 func (ttm *TailTaskMgr) Run(ctx context.Context) {
 	for true {
 		select {

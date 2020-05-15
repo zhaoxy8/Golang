@@ -58,11 +58,12 @@ func main() {
 		tailtask := taillog.NewTailTask(v.Path, v.Topic)
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
-		tailtaskmgr := taillog.NewTailTaskMgr(tailtask)
-		go tailtaskmgr.Run(ctx)
+		tailtaskmgr := taillog.NewTailTaskMgr(ctx, tailtask)
 		tailtaskmgrsli = append(tailtaskmgrsli, tailtaskmgr)
 	}
-
+	for _, v := range tailtaskmgrsli {
+		fmt.Println(v.Topic)
+	}
 	wg.Wait()
 
 	// 3.1 构造一个tailobj的切片每个切片做一个goroute去读取数据
