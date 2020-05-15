@@ -2,6 +2,7 @@ package taillog
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/hpcloud/tail"
 )
@@ -13,11 +14,24 @@ type TailTask struct {
 	Intance *tail.Tail
 }
 
+//LogTopic 日志结构体 存储log和topic
+type LogTopic struct {
+	Topic string
+	Line  string
+}
+
+//LogChan channel 用于缓冲日志数据 做一个日志结构体
+var LogChan = make(chan *LogTopic, 1000)
+
 //NewTailTask 构造方法
 func NewTailTask(path string, topic string) *TailTask {
 	tailtask := &TailTask{
 		Path:  path,
 		Topic: topic,
+	}
+	err := tailtask.init(path)
+	if err != nil {
+		fmt.Println("NewTailTask err:", err)
 	}
 	tailtask.init(path)
 	return tailtask
@@ -37,10 +51,25 @@ func (t *TailTask) init(filename string) (err error) {
 		fmt.Println("tail file err:", err)
 		return
 	}
+	go t.Run()
 	return
 }
 
-//ReadChan 从文件对象中读取数据返回一个Line结构体型只读chan Line
-func (t *TailTask) ReadChan() <-chan *tail.Line {
-	return t.Intance.Lines
+//Run 从文件对象中读取数据返回只读chan Line //Intance = tailobj
+func (t *TailTask) Run() {
+	for true {
+		select {
+		case line := <-t.Intance.Lines:
+			// fmt.Printf("%s line:%s\n", ttm.Path, line.Text)
+			logtopic := &LogTopic{
+				Topic: t.Topic,
+				Line:  line.Text,
+			}
+			//构造一个channel 用于缓冲日志数据 做一个日志结构体
+			LogChan <- logtopic
+		// kafka.SendMsg(cfg.KafkaConf.Topic, line.Text) //函数调用函数
+		default:
+			time.Sleep(100 * time.Millisecond)
+		}
+	}
 }

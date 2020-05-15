@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"sync"
 
@@ -39,20 +38,10 @@ func main() {
 	logEntry, err := etcd.GetConf(cfg.EtcdConf.Logkey, cfg.EtcdConf.Timeout)
 	// fmt.Printf("%#v\n", logEntry)
 	// 2.2 派一个哨兵监控日志项的变化，实现热加载
-
+	taillog.Init(logEntry)
 	// 3.使用taillog读取path中的日志发送到kafka
 	wg.Add(len(logEntry))
-	// 3.1添加tailtaskmgr切片，用于管理tailtask任务
-	tailtaskmgrsli := make([]*taillog.TailTaskMgr, 0, len(logEntry))
-	for _, v := range logEntry {
-		// fmt.Println(v.Path, v.Topic)
-		tailtask := taillog.NewTailTask(v.Path, v.Topic)
-		ctx, cancel := context.WithCancel(context.Background())
-		defer cancel()
-		//3.2构造tailtaskmgr，并且后台直接启动协程进行日志读取传输到kafka中
-		tailtaskmgr := taillog.NewTailTaskMgr(ctx, tailtask)
-		tailtaskmgrsli = append(tailtaskmgrsli, tailtaskmgr)
-	}
+
 	wg.Wait()
 
 }
