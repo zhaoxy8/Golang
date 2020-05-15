@@ -2,7 +2,6 @@ package taillog
 
 import (
 	"context"
-	"fmt"
 	"time"
 )
 
@@ -12,6 +11,15 @@ type TailTaskMgr struct {
 	Topic    string
 	TailTask *TailTask
 }
+
+//LogTopic 日志结构体 存储log和topic
+type LogTopic struct {
+	Topic string
+	Line  string
+}
+
+//LogChan channel 用于缓冲日志数据 做一个日志结构体
+var LogChan = make(chan *LogTopic, 1000)
 
 //NewTailTaskMgr 构造方法
 func NewTailTaskMgr(ctx context.Context, tailtask *TailTask) *TailTaskMgr {
@@ -29,7 +37,13 @@ func (ttm *TailTaskMgr) Run(ctx context.Context) {
 	for true {
 		select {
 		case line := <-ttm.TailTask.Intance.Lines:
-			fmt.Printf("%s line:%s\n", ttm.Path, line.Text)
+			// fmt.Printf("%s line:%s\n", ttm.Path, line.Text)
+			logtopic := &LogTopic{
+				Topic: ttm.Topic,
+				Line:  line.Text,
+			}
+			//构造一个channel 用于缓冲日志数据 做一个日志结构体
+			LogChan <- logtopic
 		// kafka.SendMsg(cfg.KafkaConf.Topic, line.Text)
 		case <-ctx.Done(): // 等待上级通知
 			break

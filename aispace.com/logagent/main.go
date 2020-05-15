@@ -9,7 +9,6 @@ import (
 	"Golong/aispace.com/logagent/etcd"
 	"Golong/aispace.com/logagent/kafka"
 	"Golong/aispace.com/logagent/taillog"
-	"github.com/hpcloud/tail"
 	"gopkg.in/ini.v1"
 )
 
@@ -19,21 +18,12 @@ var (
 	wg  sync.WaitGroup
 )
 
-func run(tailpath string, tailline <-chan *tail.Line) {
-
-}
-
 func main() {
 	//1.把ini文件转换为结构体
 	err := ini.MapTo(cfg, "./conf.ini")
 	if err != nil {
 		fmt.Printf("load conf.init failed%v\n", err)
 	}
-	// err = taillog.Init(cfg.TaillogConf.Path)
-	// if err != nil {
-	// 	fmt.Printf("taillog init failed%v\n", err)
-	// }
-	// fmt.Println("taillog init success")
 	//2.连接etcd
 	err = etcd.Init(cfg.EtcdConf.Address, cfg.EtcdConf.Timeout)
 	if err != nil {
@@ -63,11 +53,6 @@ func main() {
 		tailtaskmgr := taillog.NewTailTaskMgr(ctx, tailtask)
 		tailtaskmgrsli = append(tailtaskmgrsli, tailtaskmgr)
 	}
-	for _, v := range tailtaskmgrsli {
-		fmt.Println(v.Topic)
-	}
 	wg.Wait()
 
-	// 3.1 构造一个tailobj的切片每个切片做一个goroute去读取数据
-	// run()
 }

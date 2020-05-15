@@ -3,6 +3,7 @@ package kafka
 import (
 	"fmt"
 
+	"Golong/aispace.com/logagent/taillog"
 	"github.com/Shopify/sarama"
 )
 
@@ -20,19 +21,23 @@ func Init(hosts []string) (err error) {
 		fmt.Println("producer closed, err:", err)
 		return
 	}
+	//放到后台进行接收日志
+	go SendMsg()
 	return
 }
 
 //SendMsg 向topic中发送数据
-func SendMsg(topic, line string) {
-	// 构造一个消息
-	msg := &sarama.ProducerMessage{}
-	msg.Topic = topic
-	msg.Value = sarama.StringEncoder(line)
-	pid, offset, err := client.SendMessage(msg)
-	if err != nil {
-		fmt.Println("send msg failed, err:", err)
-		return
+func SendMsg() {
+	// 从channel 中读取日志结构体构造一个消息
+	for v := range taillog.LogChan {
+		msg := &sarama.ProducerMessage{}
+		msg.Topic = v.Topic
+		msg.Value = sarama.StringEncoder(v.Line)
+		pid, offset, err := client.SendMessage(msg)
+		if err != nil {
+			fmt.Println("send msg failed, err:", err)
+			return
+		}
+		fmt.Printf("pid:%v offset:%v\n", pid, offset)
 	}
-	fmt.Printf("pid:%v offset:%v\n", pid, offset)
 }
