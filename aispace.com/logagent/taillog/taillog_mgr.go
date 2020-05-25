@@ -32,7 +32,7 @@ func Init(logEntry []*etcd.LogEntry) {
 		// defer cancel()
 	}
 	tailtaskmgr.TailTask = taillogmap
-	tailtaskmgr.run()
+	go tailtaskmgr.run()
 }
 
 func (t *TailTaskMgr) run() {
