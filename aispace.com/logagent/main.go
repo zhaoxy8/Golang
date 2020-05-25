@@ -41,8 +41,10 @@ func main() {
 
 	// 3.使用taillog读取path中的日志发送到kafka
 	taillog.Init(logEntry)
-	wg.Add(len(logEntry))
-
+	newConfChan := taillog.NewConfChan()
+	wg.Add(1)
+	//从taillog包中获取对外暴露的通道
+	go etcd.WatchConf(cfg.EtcdConf.Logkey, newConfChan) //哨兵发现最新的配置信息会通知上面的通道
 	wg.Wait()
 
 }

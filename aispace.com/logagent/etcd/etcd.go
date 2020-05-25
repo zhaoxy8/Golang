@@ -56,3 +56,27 @@ func GetConf(key string, timeout int) (logEntry []*LogEntry, err error) {
 	}
 	return
 }
+
+//WatchConf 监控key的变化
+func WatchConf(key string, newConfCh chan<- []*LogEntry) {
+	//watch key logpath change
+	rch := cli.Watch(context.Background(), key)
+	for wresp := range rch {
+		for _, ev := range wresp.Events {
+			fmt.Printf("Type: %s Key:%s Value:%s\n", ev.Type, ev.Kv.Key, ev.Kv.Value)
+			//通知别人
+			//1.先判断操作的类型
+			var newConf []*LogEntry
+			if ev.Type != clientv3.EventTypeDelete {
+				//如果是删除操作,手工设置空值
+				err := json.Unmarshal(ev.Kv.Value, &newConf)
+				if err != nil {
+					fmt.Printf("unmarshal failed,err %v", err)
+					continue
+				}
+			}
+			fmt.Printf("get new conf:%v\n", newConf)
+			newConfCh <- newConf
+		}
+	}
+}
