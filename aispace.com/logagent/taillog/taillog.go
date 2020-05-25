@@ -14,13 +14,13 @@ type TailTask struct {
 	Intance *tail.Tail
 }
 
-//LogTopic 日志结构体 存储log和topic
+//LogTopic 真正日志数据结构体 存储log和topic
 type LogTopic struct {
 	Topic string
 	Line  string
 }
 
-//LogChan channel 用于缓冲日志数据 做一个日志结构体
+//LogChan channel 用于缓冲日志数据 做一个日志结构体指针
 var LogChan = make(chan *LogTopic, 1000)
 
 //NewTailTask 构造方法
@@ -64,7 +64,7 @@ func (t *TailTask) Run() {
 				Topic: t.Topic,
 				Line:  line.Text,
 			}
-			//构造一个channel 用于缓冲日志数据 做一个日志结构体
+			//构造一个channel 用于缓冲日志数据结构体指针
 			LogChan <- logtopic
 		// kafka.SendMsg(cfg.KafkaConf.Topic, line.Text) //函数调用函数
 		default:

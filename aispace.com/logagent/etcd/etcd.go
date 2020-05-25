@@ -47,6 +47,7 @@ func GetConf(key string, timeout int) (logEntry []*LogEntry, err error) {
 	// fmt.Println(logEntry == nil)
 	for _, ev := range resp.Kvs {
 		fmt.Printf("[%s]:%s\n", ev.Key, ev.Value)
+		//把解析的LogEntry 组合成一个切片slice
 		err = json.Unmarshal(ev.Value, &logEntry)
 		if err != nil {
 			fmt.Printf("json Unmarshal failed, err:%v\n", err)
