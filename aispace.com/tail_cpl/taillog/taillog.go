@@ -80,7 +80,12 @@ func (t *TailTask) run() {
 	}
 }
 
-//NewConfChan 一个函数，向外暴露只读tailtask  S3Chan
-func NewConfChan() <-chan *string {
+//GetS3Chan 一个函数，向外暴露只读tailtask  S3Chan
+func GetS3Chan() <-chan *string {
 	return tailtask.S3Chan
+}
+
+//GetS3Path 一个函数，向外暴露只读tailtask  S3Path
+func GetS3Path() map[string]bool {
+	return tailtask.S3Path
 }
