@@ -67,6 +67,8 @@ func (t *TailTaskMgr) run() {
 					//把ch1对应的tailobj给停掉
 					mk := fmt.Sprintf("%s_%s", ch1.Path, ch1.Topic)
 					t.tailTaskMap[mk].cancelFunc()
+					//删掉map中的key
+					delete(t.tailTaskMap, mk)
 				}
 
 			}

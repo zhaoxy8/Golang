@@ -65,7 +65,7 @@ func (t *TailTask) Run() {
 	for true {
 		select {
 		case <-t.ctx.Done():
-			fmt.Printf("tail task:%s_%s 结束了", t.Path, t.Topic)
+			fmt.Printf("tail task:%s_%s 结束了\n", t.Path, t.Topic)
 			return
 		case line := <-t.Intance.Lines:
 			// fmt.Printf("%s line:%s\n", ttm.Path, line.Text)
