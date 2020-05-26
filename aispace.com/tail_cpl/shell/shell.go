@@ -34,8 +34,8 @@ func run(s3 string) {
 	//处理完成后把map中的key删除掉
 	defer delete(S3Path, s3)
 	if err != nil {
-		fmt.Printf("Execute Shell:%s failed with error:%s", command, err.Error())
+		fmt.Printf("Execute Shell:%s failed with error:%s\n", command, err.Error())
 		return
 	}
-	fmt.Printf("Execute Shell:%s finished with output:\n%s", command, string(output))
+	fmt.Printf("Execute Shell:%s finished with output:\n%s\n", command, string(output))
 }
