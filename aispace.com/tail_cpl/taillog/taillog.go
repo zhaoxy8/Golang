@@ -34,7 +34,8 @@ func Init() {
 		}
 		idx := strings.Index(msg.Text, "Failed to download CAPSULE_SOURCE")
 		if idx >= 1 {
-			fmt.Println("msg:", msg.Text)
+			s3 := strings.Split(msg.Text, "'")[1]
+			fmt.Println("msg:", s3)
 		}
 	}
 }
