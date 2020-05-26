@@ -1,13 +1,15 @@
-package main
+package taillog
 
 import (
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/hpcloud/tail"
 )
 
-func main() {
+//Init taillog处理方法
+func Init() {
 	filename := "/opt/viv/type-server/logs/webservice-current.log"
 	tailFile, err := tail.TailFile(filename, tail.Config{
 		ReOpen:    true,                                 //重新打开
@@ -30,6 +32,9 @@ func main() {
 			time.Sleep(100 * time.Millisecond)
 			continue
 		}
-		fmt.Println("msg:", msg)
+		idx := strings.Index(msg.Text, "Failed to download CAPSULE_SOURCE")
+		if idx >= 1 {
+			fmt.Println("msg:", msg.Text)
+		}
 	}
 }
