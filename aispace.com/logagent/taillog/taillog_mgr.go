@@ -44,8 +44,7 @@ func (t *TailTaskMgr) run() {
 			fmt.Println("新增配置来了", newConf)
 			for _, conf := range newConf {
 				//1.配置新增
-				//2.配置删除
-				//3.配置变更
+				//2.配置变更
 				mk := fmt.Sprintf("%s_%s", conf.Path, conf.Topic)
 				// 如果新配置在老的配置切片中，就不做处理
 				_, ok := t.tailTaskMap[mk]
@@ -56,6 +55,22 @@ func (t *TailTaskMgr) run() {
 				tailobj := NewTailTask(conf.Path, conf.Topic)
 				t.tailTaskMap[mk] = tailobj
 			}
+			//3.配置删除
+			for _, ch1 := range t.tailTaskMap {
+				isdelete := true
+				for _, ch2 := range newConf {
+					if ch1.Path == ch2.Path && ch1.Topic == ch2.Topic {
+						isdelete = false
+					}
+				}
+				if isdelete {
+					//把ch1对应的tailobj给停掉
+					mk := fmt.Sprintf("%s_%s", ch1.Path, ch1.Topic)
+					t.tailTaskMap[mk].cancelFunc()
+				}
+
+			}
+
 		default:
 			time.Sleep(time.Second)
 		}

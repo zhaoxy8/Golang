@@ -1,6 +1,7 @@
 package taillog
 
 import (
+	"context"
 	"fmt"
 	"time"
 
@@ -9,9 +10,11 @@ import (
 
 //TailTask 存储每个tailobj的结构体 tailobj真正打开文件去读取日志
 type TailTask struct {
-	Path    string
-	Topic   string
-	Intance *tail.Tail
+	Path       string
+	Topic      string
+	Intance    *tail.Tail
+	ctx        context.Context
+	cancelFunc context.CancelFunc
 }
 
 //LogTopic 真正日志数据结构体 存储log和topic
@@ -25,9 +28,12 @@ var LogChan = make(chan *LogTopic, 1000)
 
 //NewTailTask 构造方法
 func NewTailTask(path string, topic string) *TailTask {
+	ctx, cancel := context.WithCancel(context.Background())
 	tailtask := &TailTask{
-		Path:  path,
-		Topic: topic,
+		Path:       path,
+		Topic:      topic,
+		ctx:        ctx,
+		cancelFunc: cancel,
 	}
 	err := tailtask.init(path)
 	if err != nil {
@@ -58,6 +64,9 @@ func (t *TailTask) init(filename string) (err error) {
 func (t *TailTask) Run() {
 	for true {
 		select {
+		case <-t.ctx.Done():
+			fmt.Printf("tail task:%s_%s 结束了", t.Path, t.Topic)
+			return
 		case line := <-t.Intance.Lines:
 			// fmt.Printf("%s line:%s\n", ttm.Path, line.Text)
 			logtopic := &LogTopic{
