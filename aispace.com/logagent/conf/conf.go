@@ -9,6 +9,7 @@ type Conf struct {
 //KafkaConf ...
 type KafkaConf struct {
 	Address []string `ini:"hosts"`
+	LogSize int      `ini:"logchansize"`
 }
 
 //EtcdConf ...

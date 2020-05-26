@@ -11,7 +11,7 @@ import (
 var client sarama.SyncProducer
 
 //Init 初始化kafka连接的client
-func Init(hosts []string) (err error) {
+func Init(hosts []string, logchansize int) (err error) {
 	config := sarama.NewConfig()
 	config.Producer.RequiredAcks = sarama.WaitForAll          // 发送完数据需要leader和follow都确认
 	config.Producer.Partitioner = sarama.NewRandomPartitioner // 新选出一个partition
@@ -22,6 +22,8 @@ func Init(hosts []string) (err error) {
 		fmt.Println("producer closed, err:", err)
 		return
 	}
+	//根据配置大小初始化LogChan 通道
+	taillog.LogChan = make(chan *taillog.LogTopic, logchansize)
 	//放到后台进行接收日志
 	go SendMsg()
 	return
