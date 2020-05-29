@@ -18,7 +18,7 @@ func Init() {
 		select {
 		//获取chan中需要处理的s3,处理完成后堵塞
 		case s3 := <-taillog.GetS3Chan():
-			logger.Printf("需要处理的:%s\n", *s3)
+			logger.Printf("需要处理:%s\n", *s3)
 			go run(*s3)
 		default:
 			time.Sleep(time.Millisecond * 10)
@@ -30,7 +30,7 @@ func run(s3 string) {
 	//'s3://bixby-submissions/prd/live/capsules/master/bixby.rideShareResolver_KR/0.3.0/capsule.tgz'
 	capsule := strings.Split(s3, "/")
 	command := "submissions-man-sync.sh " + capsule[7] + "/" + capsule[8]
-	logger.Printf("需要执行的命令:%s\n", command)
+	logger.Printf("需要执行:%s\n", command)
 	cmd := exec.Command("/bin/bash", "-c", command)
 	output, err := cmd.Output()
 	S3Path := taillog.GetS3Path()
