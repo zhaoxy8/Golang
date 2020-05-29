@@ -1,7 +1,8 @@
 package taillog
 
 import (
-	"fmt"
+	"log"
+	"os"
 	"strings"
 	"time"
 
@@ -13,7 +14,9 @@ import (
 
 // 	S3Chan chan string
 // )
+
 var tailtask *TailTask
+var logger = log.New(os.Stdout, "[TAIL]", log.Lshortfile|log.Ldate|log.Ltime)
 
 //TailTask 存储每个tailobj的结构体 tailobj真正打开文件去读取日志
 type TailTask struct {
@@ -32,7 +35,7 @@ func NewTailTask(path string) *TailTask {
 	}
 	err := tailtask.init(path)
 	if err != nil {
-		fmt.Println("NewTailTask err:", err)
+		logger.Printf("NewTailTask err:%v\n", err)
 	}
 	return tailtask
 }
@@ -47,7 +50,8 @@ func (t *TailTask) init(path string) (err error) {
 		Poll:      true,
 	})
 	if err != nil {
-		fmt.Println("tail file err:", err)
+		// fmt.Println("tail file err:", err)
+		logger.Println("tail file err:", err)
 		return
 	}
 	t.tailobj = tailobj
@@ -59,7 +63,7 @@ func (t *TailTask) run() {
 	for true {
 		msg, ok := <-t.tailobj.Lines
 		if !ok {
-			fmt.Printf("tail file close reopen, filename: %s\n", t.tailobj.Filename)
+			logger.Printf("tail file close reopen, filename: %s\n", t.tailobj.Filename)
 			time.Sleep(100 * time.Millisecond)
 			continue
 		}
@@ -74,7 +78,7 @@ func (t *TailTask) run() {
 				//把s3路径地址放到chan中
 				t.S3Chan <- &s3
 			}
-			fmt.Println("msg:", s3)
+			logger.Println("msg:", s3)
 
 		}
 	}
