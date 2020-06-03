@@ -16,22 +16,37 @@ func main() {
 		c.JSON(200, gin.H{
 			"message": "Hello world!",
 		})
-
 	})
 	// 二、RESful
-	r.POST("/Post", getting)
+	r.POST("/book", posting)
+	r.PUT("/book", puting)
+	r.DELETE("/book", deleteing)
 	// 三、API参数
 	r.GET("/user/:name", func(c *gin.Context) {
 		name := c.Param("name")
 		c.String(http.StatusOK,name)
 	})
+	r.GET("/say",sayhello)
 	// 四 URL参数
-
-
 	// 启动HTTP服务，默认在0.0.0.0:8080启动服务
 	r.Run(":8000")
 }
 
-func getting(c *gin.Context)  {
-	c.String(http.StatusOK,"Post")
+func posting(c *gin.Context)  {
+	c.JSON(http.StatusOK,gin.H{
+		"message":"Post",
+	})
+}
+func puting(c *gin.Context)  {
+	c.JSON(http.StatusOK,gin.H{
+		"message":"Put",
+	})
+}
+func deleteing(c *gin.Context)  {
+	c.JSON(http.StatusOK,gin.H{
+		"message":"Delete",
+	})
+}
+func sayhello(c *gin.Context){
+	c.String(http.StatusOK,"id","hello")
 }
