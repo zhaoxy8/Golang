@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello</title>
+</head>
+<body>
+<p>Hello {{.}}</p>
+<h1>姓名: {{ .u1.Name }}</h1>
+<h1>年龄: {{ .u1.Age }}</h1>
+<h1>性别: {{ .u1.Gender }}</h1>
+<hr>
+
+<h1>host: {{ .m1.host }}</h1>
+<h1>result: {{ .m1.result }}</h1>
+<hr>
+{{ $obj := .m1.host }}
+<h1>变量的使用host: {{- $obj -}}</h1>
+<hr>
+{{ if $obj }}
+{{ $obj }}
+{{ else }}
+没有主机名
+{{ end }}
+
+<hr>
+{{ if lt .u1.Age 22 }}
+<p>好好上学</p>
+{{ else }}
+好好工作
+{{ end }}
+<hr>
+{{ range $idx, $hobby := .hobby }}
+  <p>{{$idx}} - {{$hobby}}</p>
+{{else}}
+没爱好
+{{end}}
+<hr>
+{{ with .u1 }}
+<p>姓名: {{ .Name }}</p>
+<p>年龄: {{ .Age }}</p>
+<p>性别: {{ .Gender }}</p>
+{{end}}
+</body>
+</html>
