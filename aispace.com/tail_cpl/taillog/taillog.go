@@ -9,18 +9,12 @@ import (
 	"github.com/hpcloud/tail"
 )
 
-// var (
-// 	S3Path map[string]bool
-
-// 	S3Chan chan string
-// )
-
 var tailtask *TailTask
 var logger = log.New(os.Stdout, "[TAIL]", log.Lshortfile|log.Ldate|log.Ltime)
 
 //TailTask 存储每个tailobj的结构体 tailobj真正打开文件去读取日志
 type TailTask struct {
-	//S3Path 存储s3路径
+	//S3Path 存储s3路径 true
 	S3Path map[string]bool
 	//S3Chan shell 多协程使用
 	S3Chan  chan *string
@@ -77,19 +71,18 @@ func (t *TailTask) run() {
 				t.S3Path[s3] = true
 				//把s3路径地址放到chan中
 				t.S3Chan <- &s3
+				logger.Println("msg:", s3)
 			}
-			logger.Println("msg:", s3)
-
 		}
 	}
 }
 
-//GetS3Chan 一个函数，向外暴露只读tailtask  S3Chan
+//GetS3Chan 一个函数，向外暴露只读S3 channel  S3Chan
 func GetS3Chan() <-chan *string {
 	return tailtask.S3Chan
 }
 
-//GetS3Path 一个函数，向外暴露只读tailtask  S3Path
+//GetS3Path 一个函数，向外暴露S3路径map  S3Path
 func GetS3Path() map[string]bool {
 	return tailtask.S3Path
 }
