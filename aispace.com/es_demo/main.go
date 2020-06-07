@@ -21,7 +21,6 @@ type Person struct {
 
 func main() {
 	client, err := elastic.NewClient(elastic.SetURL("internal-aabe4ee8b6bf24baa91763ce54059c4a-576947003.cn-north-1.elb.amazonaws.com.cn:9200"))
-	elastic.NewClient()
 	if err != nil {
 		panic(err)
 	}
@@ -31,6 +30,7 @@ func main() {
 		Age:     32,
 		Married: true,
 	}
+	//链式操作
 	put1, err := client.Index().
 		Index("user").
 		BodyJson(p1).
