@@ -62,24 +62,7 @@ func NewHostConfig(IpList []string,MtInstance string,Command string,Username str
 	return hostConfig
 }
 
-func (hc *HostConfig)publicKeyAuthFunc() ssh.AuthMethod{
-	//如果路径以“〜”为前缀，则Expand扩展路径以包括主目录。如果没有以〜为前缀，则按原样返回路径。
-	keyPath, err := homedir.Expand(hc.Key)
-	if err != nil {
-		logger.Fatal("find key's home dir failed", err)
-	}
-	key, err := ioutil.ReadFile(keyPath)
-	if err != nil {
-		logger.Fatal("ssh key file read failed", err)
-		return nil //
-	}
-	// Create the Signer for this private key.
-	signer, err := ssh.ParsePrivateKey(key)
-	if err != nil {
-		logger.Fatal("ssh key signer failed", err)
-	}
-	return ssh.PublicKeys(signer)
-}
+
 
 func (hc *HostConfig)sshConfig(){
 	//创建ssh登陆配置
@@ -89,15 +72,44 @@ func (hc *HostConfig)sshConfig(){
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(), //这个可以， 但是不够安全
 		// HostKeyCallback: ssh.FixedHostKey(hostKey),
 	}
-	//每台主机都使用sshkey登录
-	config.Auth = []ssh.AuthMethod{hc.publicKeyAuthFunc()}
+	//解析sshkey文件，如果解析报错把SshConfig赋值为nil
+	authMethod,err := hc.publicKeyAuthFunc()
+	if err != nil {
+		//logger.Println(err)
+		hc.SshConfig = nil
+		return
+	}
+	config.Auth = []ssh.AuthMethod{authMethod}
 	//给结构体的SshConfig赋值
 	hc.SshConfig = config
+}
+
+func (hc *HostConfig)publicKeyAuthFunc() (ssh.AuthMethod,error){
+	//如果路径以“〜”为前缀，则Expand扩展路径以包括主目录。如果没有以〜为前缀，则按原样返回路径。
+	keyPath, err := homedir.Expand(hc.Key)
+	if err != nil {
+		logger.Println("find key's home dir failed", err)
+	}
+	key, err := ioutil.ReadFile(keyPath)
+	if err != nil {
+		logger.Println("ssh key file read failed", err)
+		return nil, err //
+	}
+	// Create the Signer for this private key.
+	signer, err := ssh.ParsePrivateKey(key)
+	if err != nil {
+		logger.Println("ssh key signer failed", err)
+	}
+	return ssh.PublicKeys(signer),nil
 }
 
 func (hc *HostConfig)execCom(ip string){
 	defer hc.Wg.Done()
 	addr := fmt.Sprintf("%s:%d", ip, hc.Port)
+	//如果hc.SshConfig 为nil直接返回，防止sshkey不存在报错
+	if hc.SshConfig == nil{
+		return
+	}
 	sshClient, err := ssh.Dial("tcp", addr, hc.SshConfig)
 	if err != nil {
 		logger.Println("创建ssh client 失败", err)
@@ -107,7 +119,7 @@ func (hc *HostConfig)execCom(ip string){
 	//创建ssh-session
 	session, err := sshClient.NewSession()
 	if err != nil {
-		logger.Fatal("创建ssh session 失败", err)
+		logger.Println("创建ssh session 失败", err)
 		return
 	}
 	defer session.Close()
