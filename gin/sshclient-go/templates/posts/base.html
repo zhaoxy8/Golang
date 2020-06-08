@@ -1,0 +1,37 @@
+{{define "posts/base.html"}}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/static/css/table.css">
+    <title>Aibixby- SSH-GoLang</title>
+</head>
+<body>
+
+<table class="hovertable" >
+    <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+        <td align="center" colspan="2">
+            <img src='/static/images/docker-test.png' alt='自强'>
+            <h3>执行完成</h3><INPUT onclick="history.go(-1)" type="button" bgcolor="#cce6ff" size="40" value="返回">
+        </td>
+    </tr>
+    {{ range $idx, $HostResult := .HostResultSlice }}
+    <tr  onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+        <td align="center">
+            {{$HostResult.Host}}
+        </td>
+        <td>
+            {{$HostResult.SshResult}}
+        </td>
+    </tr>
+    {{else}}
+        <tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+         <td align="center" colspan="2" >
+             无结果
+         </td>
+        </tr>
+
+    {{end}}
+</table>
+</body>
+</html>
+{{end}}
