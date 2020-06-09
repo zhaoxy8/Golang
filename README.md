@@ -10,3 +10,5 @@
 - 使用gin框架实现远程执行SSH网页版，加载静态文件，每台主机开启一个goroutine进行处理
 ### aispace.com/tail_cpl Project
 - tail过滤日志文件，匹配日志后执行shell命令处理错误
+### pod-gpu-metrics-exporter
+- k8s的GPU-metrics-exporter，主要实现Pod级别调用了多少块GPU卡，每块GPU卡的使用率，最终实现以Pod的方式展现GPU使用率
