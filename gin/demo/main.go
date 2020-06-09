@@ -50,3 +50,4 @@ func deleteing(c *gin.Context)  {
 func sayhello(c *gin.Context){
 	c.String(http.StatusOK,"id","hello")
 }
+
