@@ -20,6 +20,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4aad6263-4159-4610-b246-d477627087a2" name="默认的" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statics/css/Bootstrap.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/statics/css/aero.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/statics/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/statics/css/bootstrap.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statics/css/dark-matter.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/statics/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/statics/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statics/css/table.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/statics/images/docker-test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/statics/js/bootstrap.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/statics/js/bootstrap.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statics/js/docs.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/statics/js/echarts.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/statics/js/echarts.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/statics/js/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/statics/js/jquery-2.1.4.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/statics/js/jquery.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/statics/js/jquery.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/main.go" afterDir="false" />

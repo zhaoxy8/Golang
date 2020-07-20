@@ -22,7 +22,7 @@ func main() {
 	route.LoadHTMLGlob("templates/**/*") //**代表目录
 	//模板渲染
 	route.GET("/index.html", func(c *gin.Context) {
-		c.HTML(http.StatusOK,"login/k8s-index.html",nil)
+		c.HTML(http.StatusOK,"system/index.html",nil)
 	})
 	route.POST("/command",deployexec.ExecComm)
 	route.Run(":9090")
