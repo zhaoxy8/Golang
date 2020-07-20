@@ -20,21 +20,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4aad6263-4159-4610-b246-d477627087a2" name="默认的" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/404.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/404.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/blank.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/blank.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/faq.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/faq.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/forms.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/forms.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/gallery.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/gallery.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/graphs.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/graphs.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/inbox.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/inbox.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/maps.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/maps.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/signin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/signin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/typography.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/typography.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/validation.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/validation.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/main.go" afterDir="false" />

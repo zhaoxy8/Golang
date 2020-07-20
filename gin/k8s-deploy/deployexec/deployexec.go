@@ -174,3 +174,22 @@ func ExecComm(c *gin.Context){
 		"HostResultSlice":HostResultSlice,
 	})
 }
+
+func ListNameSpace(c *gin.Context){
+	kubeconfig := c.PostForm("kubeconfig")
+	namespace := c.PostForm("namespace")
+	deployment := c.PostForm("deployment")
+	command := c.PostForm("command")
+	image := c.PostForm("image")
+	replicas,_ := strconv.Atoi(c.PostForm("replicas"))
+	//MTInstance := c.PostForm("selectInstance")
+	deploymentConfig := NewDeploymentConfig(kubeconfig,image,command,deployment, int32(replicas),namespace)
+	fmt.Println(deploymentConfig)
+	logger.Println(deploymentConfig)
+	HostResultSlice = make([]*DeploymentConfig,0)
+	HostResultSlice = append(HostResultSlice,deploymentConfig)
+	deploymentConfig.Run()
+	c.HTML(http.StatusOK,"system/signup.html",gin.H{
+		"HostResultSlice":HostResultSlice,
+	})
+}

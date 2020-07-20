@@ -67,6 +67,7 @@ func main() {
 	route.GET("/signup.html", func(c *gin.Context) {
 		c.HTML(http.StatusOK,"system/signup.html",nil)
 	})
+	route.GET("/listnamespace.html", deployexec.ListNameSpace)
 	route.POST("/command",deployexec.ExecComm)
 	route.Run(":9090")
 }
