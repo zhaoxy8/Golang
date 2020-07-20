@@ -24,6 +24,49 @@ func main() {
 	route.GET("/index.html", func(c *gin.Context) {
 		c.HTML(http.StatusOK,"system/index.html",nil)
 	})
+	route.GET("/graphs.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/graphs.html",nil)
+	})
+	route.GET("/maps.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/maps.html",nil)
+	})
+	route.GET("/typography.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/typography.html",nil)
+	})
+
+	route.GET("/inbox.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/inbox.html",nil)
+	})
+
+	route.GET("/gallery.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/gallery.html",nil)
+	})
+
+	route.GET("/layout.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/layout.html",nil)
+	})
+	route.GET("/forms.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/forms.html",nil)
+	})
+	route.GET("/validation.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/validation.html",nil)
+	})
+
+	route.GET("/404.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/404.html",nil)
+	})
+	route.GET("/faq.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/faq.html",nil)
+	})
+	route.GET("/blank.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/blank.html",nil)
+	})
+	route.GET("/signin.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/signin.html",nil)
+	})
+	route.GET("/signup.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/signup.html",nil)
+	})
 	route.POST("/command",deployexec.ExecComm)
 	route.Run(":9090")
 }
