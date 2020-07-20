@@ -20,17 +20,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4aad6263-4159-4610-b246-d477627087a2" name="默认的" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sshclient-go.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deployexec/deployexec.go" beforeDir="false" afterPath="$PROJECT_DIR$/deployexec/deployexec.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/login/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/posts/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/posts/base.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/main.go" afterDir="false" />
