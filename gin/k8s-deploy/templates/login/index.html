@@ -21,7 +21,12 @@
 	</h1>
 	<label>
 		<span>Kubeconfig:</span>
-		<input id="kubeconfig" type="text" name="kubeconfig" value="C:/dev-dr-config" />
+		<select name="kubeconfig">
+			<option value="dev-dr-config"> INT dev-dr-config</option>
+			<option value="dev-config"> INT dev-config</option>
+			<option value="stg-config"> STG stg-config</option>
+			<option value="prd-config">PRD prd-config</option>
+		</select>
 	</label>
 	<label>
 		<span>Namespace:</span>
@@ -42,16 +47,6 @@
 	<label>
 		<span>Replicas:</span>
 		<input id="replicas" type="text" name="replicas" placeholder="1" value="2" />
-	</label>
-	<label>
-		<span>MT Instance</span>
-		<select name="selectInstance">
-			<option value="11.81.1.46"> ENG 11.81.1.46</option>
-			<option value="11.81.1.194"> INT 11.81.1.194</option>
-			<option value="10.91.14.59"> PRE 10.91.14.59</option>
-			<option value="10.91.16.110">STG 10.91.16.110</option>
-			<option value="10.81.19.133">PRD </option>
-		</select>
 	</label>
 	<label>
 		<span>&nbsp;</span>

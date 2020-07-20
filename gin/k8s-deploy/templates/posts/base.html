@@ -17,10 +17,10 @@
     {{ range $idx, $HostResult := .HostResultSlice }}
     <tr  onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
         <td align="center">
-            {{$HostResult.Host}}
+            {{$HostResult.Deployment}}
         </td>
         <td>
-            {{$HostResult.SshResult}}
+            {{$HostResult.Image}}
         </td>
     </tr>
     {{else}}
