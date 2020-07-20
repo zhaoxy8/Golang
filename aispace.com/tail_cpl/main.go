@@ -10,9 +10,9 @@ import (
 func main() {
 	var wg sync.WaitGroup
 	filename := "/opt/viv/type-server/logs/webservice-current.log"
-	taillog.NewTailTask(filename)
+	tailTask := taillog.NewTailTask(filename)
 	wg.Add(1)
-	go shell.Init()
+	go shell.Init(tailTask)
 	wg.Wait()
 
 	// a := say()
