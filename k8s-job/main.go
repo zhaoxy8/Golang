@@ -35,13 +35,13 @@ import (
 func main() {
 	var kubeconfig *string
 	if home := homeDir(); home != "" {
-		kubeconfig = flag.String("kubeconfig", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the kubeconfig file")
+		kubeconfig = flag.String("dev-dr-config", filepath.Join(home, ".kube", "config"), "(optional) absolute path to the dev-dr-config file")
 	} else {
-		kubeconfig = flag.String("kubeconfig", "", "absolute path to the kubeconfig file")
+		kubeconfig = flag.String("dev-dr-config", "", "absolute path to the dev-dr-config file")
 	}
 	flag.Parse()
 
-	// use the current context in kubeconfig
+	// use the current context in dev-dr-config
 	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
 	if err != nil {
 		panic(err.Error())
