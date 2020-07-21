@@ -40,14 +40,14 @@ func NewKubeConfig(kubeconfigform string) *KubeConfig{
 }
 // ListNameSpace 获取namespace方法
 func (kc *KubeConfig)ListNameSpace() []apiv1.Namespace{
-	logger.Printf("Listing Namespaces in k8s:\n")
+	//logger.Printf("Listing Namespaces in k8s:\n")
 	list, err := kc.ClientSet.CoreV1().Namespaces().List(metav1.ListOptions{})
 	if err != nil {
 		panic(err)
 	}
-	for _, d := range list.Items {
-		logger.Printf(" * %s (%s )\n", d.Name, d.Status.Phase)
-	}
+	//for _, d := range list.Items {
+	//	logger.Printf(" * %s (%s )\n", d.Name, d.Status.Phase)
+	//}
 	return list.Items
 }
 
@@ -207,7 +207,7 @@ func ExecComm(c *gin.Context){
 }
 
 func ListNameSpace(c *gin.Context){
-	kubeconfigform := c.Query("kubeconfig")
+	kubeconfigform := c.PostForm("kubeconfig")
 	//MTInstance := c.PostForm("selectInstance")
 	kubeConfig := NewKubeConfig(kubeconfigform)
 	namespaces := kubeConfig.ListNameSpace()
