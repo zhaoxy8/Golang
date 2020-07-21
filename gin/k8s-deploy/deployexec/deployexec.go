@@ -18,12 +18,54 @@ import (
 )
 
 // logger 日志变量
-var logger = log.New(os.Stdout, "[SSH]", log.Lshortfile|log.Ldate|log.Ltime)
-
+var logger = log.New(os.Stdout, "[k8s]", log.Lshortfile|log.Ldate|log.Ltime)
+// 获取执行dp结果的slice切片
 var HostResultSlice []*DeploymentConfig
+
+// DeploymentConfig 从index.html获取的配置信息
+type KubeConfig struct {
+	KubeConfig string
+	ClientSet *kubernetes.Clientset
+}
+
+// NewKubeConfig 构造方法
+func NewKubeConfig(kubeconfigform string) *KubeConfig{
+	KubeConfigPath := "config/"+ kubeconfigform
+	kubeconfig := &KubeConfig{
+		KubeConfig: KubeConfigPath,
+	}
+	//初始化deploymentsClient 字段
+	kubeconfig.clinetConfig()
+	return kubeconfig
+}
+// ListNameSpace 获取namespace方法
+func (kc *KubeConfig)ListNameSpace() []apiv1.Namespace{
+	logger.Printf("Listing Namespaces in k8s:\n")
+	list, err := kc.ClientSet.CoreV1().Namespaces().List(metav1.ListOptions{})
+	if err != nil {
+		panic(err)
+	}
+	for _, d := range list.Items {
+		logger.Printf(" * %s (%s )\n", d.Name, d.Status.Phase)
+	}
+	return list.Items
+}
+
+func (kc *KubeConfig)clinetConfig() {
+	config, err := clientcmd.BuildConfigFromFlags("", kc.KubeConfig)
+	if err != nil {
+		panic(err)
+	}
+	clientset, err := kubernetes.NewForConfig(config)
+	if err != nil {
+		panic(err)
+	}
+	kc.ClientSet = clientset
+}
+
 // DeploymentConfig 从index.html获取的配置信息
 type DeploymentConfig struct {
-	KubeConfig string
+	KubeConfig *KubeConfig
 	Image string
 	Command string
 	Deployment string
@@ -34,10 +76,9 @@ type DeploymentConfig struct {
 }
 
 // NewDeploymentConfig 构造方法
-func NewDeploymentConfig(KubeConfig string,Image string,Command string,Deployment string,Replicas int32,Namespace string) *DeploymentConfig{
-	KubeConfigPath := "config/"+ KubeConfig
+func NewDeploymentConfig(kubeConfig *KubeConfig,Image string,Command string,Deployment string,Replicas int32,Namespace string) *DeploymentConfig{
 	deploymentConfig := &DeploymentConfig{
-		KubeConfig: KubeConfigPath,
+		KubeConfig: kubeConfig,
 		Image: Image,
 		Command: Command,
 		Deployment: Deployment,
@@ -50,18 +91,9 @@ func NewDeploymentConfig(KubeConfig string,Image string,Command string,Deploymen
 }
 
 func (dc *DeploymentConfig)clinetConfig() {
-	config, err := clientcmd.BuildConfigFromFlags("", dc.KubeConfig)
-	if err != nil {
-		panic(err)
-	}
-	clientset, err := kubernetes.NewForConfig(config)
-	if err != nil {
-		panic(err)
-	}
-	deploymentsClient := clientset.AppsV1().Deployments(dc.Namespace)
+	deploymentsClient := dc.KubeConfig.ClientSet.AppsV1().Deployments(dc.Namespace)
 	dc.DeploymentsClient = deploymentsClient
 }
-
 func (dc *DeploymentConfig)CreateDeployment(){
 	deployment := &appsv1.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
@@ -148,23 +180,22 @@ func (dc *DeploymentConfig)DeleteDeployment(){
 	}
 	fmt.Println("Deleted deployment.")
 }
-
 func (dc *DeploymentConfig)int32Ptr(i int32) *int32 { return &i }
-
 func (dc *DeploymentConfig)Run(){
 	//dc.ListDeployment()
 	dc.CreateDeployment()
 }
 
 func ExecComm(c *gin.Context){
-	kubeconfig := c.PostForm("kubeconfig")
+	kubeconfigform := c.PostForm("kubeconfig")
+	kubeConfig := NewKubeConfig(kubeconfigform)
 	namespace := c.PostForm("namespace")
 	deployment := c.PostForm("deployment")
 	command := c.PostForm("command")
 	image := c.PostForm("image")
 	replicas,_ := strconv.Atoi(c.PostForm("replicas"))
 	//MTInstance := c.PostForm("selectInstance")
-	deploymentConfig := NewDeploymentConfig(kubeconfig,image,command,deployment, int32(replicas),namespace)
+	deploymentConfig := NewDeploymentConfig(kubeConfig,image,command,deployment, int32(replicas),namespace)
 	fmt.Println(deploymentConfig)
 	logger.Println(deploymentConfig)
 	HostResultSlice = make([]*DeploymentConfig,0)
@@ -176,20 +207,11 @@ func ExecComm(c *gin.Context){
 }
 
 func ListNameSpace(c *gin.Context){
-	kubeconfig := c.PostForm("kubeconfig")
-	namespace := c.PostForm("namespace")
-	deployment := c.PostForm("deployment")
-	command := c.PostForm("command")
-	image := c.PostForm("image")
-	replicas,_ := strconv.Atoi(c.PostForm("replicas"))
+	kubeconfigform := c.Query("kubeconfig")
 	//MTInstance := c.PostForm("selectInstance")
-	deploymentConfig := NewDeploymentConfig(kubeconfig,image,command,deployment, int32(replicas),namespace)
-	fmt.Println(deploymentConfig)
-	logger.Println(deploymentConfig)
-	HostResultSlice = make([]*DeploymentConfig,0)
-	HostResultSlice = append(HostResultSlice,deploymentConfig)
-	deploymentConfig.Run()
-	c.HTML(http.StatusOK,"system/signup.html",gin.H{
-		"HostResultSlice":HostResultSlice,
+	kubeConfig := NewKubeConfig(kubeconfigform)
+	namespaces := kubeConfig.ListNameSpace()
+	c.HTML(http.StatusOK,"system/namespace.html",gin.H{
+		"namespaces":namespaces,
 	})
 }

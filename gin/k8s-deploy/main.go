@@ -67,8 +67,12 @@ func main() {
 	route.GET("/signup.html", func(c *gin.Context) {
 		c.HTML(http.StatusOK,"system/signup.html",nil)
 	})
-	route.GET("/listnamespace.html", deployexec.ListNameSpace)
+	//查询namespace执行器  http://11.81.3.6:9090/namespace/search?kubeconfig=dev-dr-config
+	route.GET("/namespace.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/namespace.html",nil)
+	})
+	route.GET("/namespace/search",deployexec.ListNameSpace )
 	route.POST("/command",deployexec.ExecComm)
-	route.Run(":9090")
+	route.Run("0.0.0.0:9090")
 }
 

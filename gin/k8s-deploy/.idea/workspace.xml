@@ -20,6 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4aad6263-4159-4610-b246-d477627087a2" name="默认的" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deployexec/deployexec.go" beforeDir="false" afterPath="$PROJECT_DIR$/deployexec/deployexec.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/system/graphs.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/graphs.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/system/inbox.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/inbox.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/system/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/main.go" afterDir="false" />
@@ -46,10 +52,11 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/login" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../k8s-job/k8s-deploy" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\go\src\Golang\gin\k8s-deploy\templates\system" />
       <recent name="C:\Users\Administrator\go\src\Golang\gin\k8s-deploy\templates\login" />
     </key>
   </component>
@@ -72,5 +79,20 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="752" y="353" key="#Go_Modules/0.0.1920.1040@0.0.1920.1040" timestamp="1595226727222" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1595313091774">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1595313091774" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/deployexec/deployexec.go</url>
+          <line>188</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
