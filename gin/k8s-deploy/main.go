@@ -72,6 +72,34 @@ func main() {
 		c.HTML(http.StatusOK,"system/namespace.html",nil)
 	})
 	route.POST("/namespacesearch",deployexec.ListNameSpace )
+	//分组路由(Grouping Routes) 查询deployment执行器
+	//dp := route.Group("/deployment")
+	//{
+	//	dp.GET("/list", func(c *gin.Context) {
+	//		c.HTML(http.StatusOK,"system/deployment.html",nil)
+	//	})
+	//	dp.GET("/create", func(c *gin.Context) {
+	//		c.HTML(http.StatusOK,"system/create-deployment.html",nil)
+	//	})
+	//	dp.GET("/update", func(c *gin.Context) {
+	//		c.HTML(http.StatusOK,"system/update-deployment.html",nil)
+	//	})
+	//	dp.GET("/delete", func(c *gin.Context) {
+	//		c.HTML(http.StatusOK,"system/delete-deployment.html",nil)
+	//	})
+	//}
+	route.GET("/list-deployment.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/list-deployment.html",nil)
+	})
+	route.GET("/create-deployment.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/create-deployment.html",nil)
+	})
+	route.GET("/update-deployment.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/update-deployment.html",nil)
+	})
+	route.GET("/delete-deployment.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/delete-deployment.html",nil)
+	})
 	route.POST("/command",deployexec.ExecComm)
 	route.Run("0.0.0.0:9090")
 }
