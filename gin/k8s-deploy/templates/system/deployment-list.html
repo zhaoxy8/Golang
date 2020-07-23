@@ -267,16 +267,48 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="grid-form1">
 		<table class="table">
 			<tbody>
+			<tr  class="table-row">
+				<td class="table-text">
+					<span class="work">Namespace</span>
+				</td>
+				<td class="table-text">
+					<span class="work">Name</span>
+				</td>
+				<td class="table-text">
+					<span class="work">Replicas</span>
+				</td>
+				<td class="table-text">
+					<span class="work">ReadyReplicas</span>
+				</td>
+				<td class="table-text">
+					<span class="work">Image</span>
+				</td>
+				<td class="table-text">
+					<span class="work">Command</span>
+				</td>
+				<td >
+					<i class="fa fa-star-half-o icon-state-warning"></i>
+				</td>
+			</tr>
 			{{ range $idx, $ns := .deploymentSlice }}
 				<tr  class="table-row">
-					<td class="table-img">
+					<td class="table-text">
+						<span class="mar"> {{$ns.Namespace}}</span>
+					</td>
+					<td class="table-text">
 						<span class="mar"> {{$ns.Name}}</span>
 					</td>
 					<td class="table-text">
-						<h6> {{$ns.Spec.Replicas}}</h6>
+						<h6> {{$ns.Replicas}}</h6>
 					</td>
 					<td class="table-text">
-						<h6> {{$ns.Spec.Template.Spec.(index .Containers 0).Image}}</h6>
+						<h6> {{$ns.Status}}</h6>
+					</td>
+					<td class="table-text">
+						<h6> {{$ns.Image}}</h6>
+					</td>
+					<td class="table-text">
+						<h6> {{$ns.Command}}</h6>
 					</td>
 					<td >
 						<i class="fa fa-star-half-o icon-state-warning"></i>

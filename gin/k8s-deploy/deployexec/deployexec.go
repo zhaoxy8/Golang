@@ -3,24 +3,23 @@ package deployexec
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	v1 "k8s.io/client-go/kubernetes/typed/apps/v1"
-	"log"
-	"net/http"
-	"os"
-	"strconv"
-	"sync"
 	appsv1 "k8s.io/api/apps/v1"
 	apiv1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/client-go/kubernetes"
+	v1 "k8s.io/client-go/kubernetes/typed/apps/v1"
 	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/client-go/util/retry"
+	"log"
+	"net/http"
+	"os"
+	"strconv"
 )
 
 // logger 日志变量
 var logger = log.New(os.Stdout, "[k8s]", log.Lshortfile|log.Ldate|log.Ltime)
 // 获取执行dp结果的slice切片
-var HostResultSlice []*DeploymentConfig
+var deploymentSlice []*Deployment
 
 // DeploymentConfig 从index.html获取的配置信息
 type KubeConfig struct {
@@ -72,9 +71,7 @@ type DeploymentConfig struct {
 	Replicas int32
 	Namespace string
 	DeploymentsClient v1.DeploymentInterface
-	Wg sync.WaitGroup
 }
-
 // NewDeploymentConfig 构造方法
 func NewDeploymentConfig(kubeConfig *KubeConfig,Image string,Command string,Deployment string,Replicas int32,Namespace string) *DeploymentConfig{
 	deploymentConfig := &DeploymentConfig{
@@ -89,6 +86,28 @@ func NewDeploymentConfig(kubeConfig *KubeConfig,Image string,Command string,Depl
 	deploymentConfig.clinetConfig()
 	return deploymentConfig
 }
+
+// Deployment 详细信息
+type Deployment struct {
+	Image string
+	Command []string
+	Name string
+	Replicas int32
+	Namespace string
+	Status int32
+}
+func NewDeployment(Image string,Command []string,Name string,Replicas int32,Namespace string,Status int32) *Deployment{
+	deployment := &Deployment{
+		Image: Image,
+		Command: Command,
+		Name: Name,
+		Replicas: Replicas,
+		Namespace: Namespace,
+		Status:Status,
+	}
+	return deployment
+}
+
 
 func (dc *DeploymentConfig)clinetConfig() {
 	deploymentsClient := dc.KubeConfig.ClientSet.AppsV1().Deployments(dc.Namespace)
@@ -140,16 +159,29 @@ func (dc *DeploymentConfig)CreateDeployment(){
 	}
 	fmt.Printf("Created deployment %q.\n", result.GetObjectMeta().GetName())
 }
-func (dc *DeploymentConfig)ListDeployment() []appsv1.Deployment{
+func (dc *DeploymentConfig)ListDeployment() []*Deployment{
 	logger.Printf("Listing deployments in namespace %q:\n", dc.Namespace)
 	list, err := dc.DeploymentsClient.List(metav1.ListOptions{})
 	if err != nil {
 		panic(err)
 	}
+	//初始化一个deployment的切片
+	deploymentSlice = make([]*Deployment,0)
+	//循环每个deployment构造所需参数的deployment结构体
 	for _, d := range list.Items {
-		logger.Printf(" * %s (%d replicas)\n", d.Name, *d.Spec.Replicas,d.Spec.Template.Spec.Containers[0].Image)
+		deployment := NewDeployment(
+			d.Spec.Template.Spec.Containers[0].Image,
+			d.Spec.Template.Spec.Containers[0].Command,
+			d.Name,
+			*d.Spec.Replicas,
+			d.Namespace,
+			d.Status.ReadyReplicas)
+		//把deployment结构体放到切片中
+		deploymentSlice = append(deploymentSlice, deployment)
+		logger.Printf(" %d (%s replicas) %s\n",deployment.Status, deployment.Namespace,deployment.Image)
 	}
-	return list.Items
+	//返回deployment切片
+	return deploymentSlice
 }
 func (dc *DeploymentConfig)UpdateDeployment() (result string){
 	//logger.Println("Updating deployment...")
@@ -200,11 +232,9 @@ func ExecComm(c *gin.Context){
 	deploymentConfig := NewDeploymentConfig(kubeConfig,image,command,deployment, int32(replicas),namespace)
 	fmt.Println(deploymentConfig)
 	logger.Println(deploymentConfig)
-	HostResultSlice = make([]*DeploymentConfig,0)
-	HostResultSlice = append(HostResultSlice,deploymentConfig)
 	deploymentConfig.Run()
 	c.HTML(http.StatusOK,"posts/base.html",gin.H{
-		"HostResultSlice":HostResultSlice,
+		"HostResultSlice":1111,
 	})
 }
 
