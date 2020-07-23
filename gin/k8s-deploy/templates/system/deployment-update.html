@@ -1,4 +1,4 @@
-{{define "system/namespace.html"}}
+{{define "system/deployment-update.html"}}
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -246,8 +246,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
  	<!--grid-->
 <div class="grid-form">
 	<div class="grid-form1">
-	<h3 id="forms-example" class="">Namespace Form</h3>
-<form action="/namespacesearch/" method="post">
+	<h3 id="forms-example" class="">Deployments</h3>
+<form action="/deployment-update/" method="post">
   <div class="form-group">
 		<label for="exampleInputPassword1">KubeConfig</label>
 			<select name="kubeconfig" id="kubeconfig" class="form-control1">
@@ -257,31 +257,39 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<option value="prd-config">PRD prd-config</option>>
 		</select>
   </div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">Namespace</label>
+		<input type="namespace" name="namespace" class="form-control" id="namespace" placeholder="default">
+	</div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">Deployment</label>
+		<input type="deployment" name="deployment" class="form-control" id="deployment" placeholder="busybox">
+	</div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">Image</label>
+		<input type="deployment" name="image" class="form-control" id="image" placeholder="zhaoxy8/busybox">
+	</div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">Replicas</label>
+		<input type="replicas" name="replicas" class="form-control" id="replicas" placeholder="2">
+	</div>
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
 </div>
 <div class="grid-form1">
 		<table class="table">
 			<tbody>
-			{{ range $idx, $ns := .namespaces }}
 				<tr  class="table-row">
 					<td class="table-img">
-						<span class="mar"> {{$ns.Name}}</span>
+						<span class="mar">Update Deployment Status</span>
 					</td>
 					<td class="table-text">
-						<h6> {{$ns.Status.Phase}}</h6>
+						<h6> {{.result}}</h6>
 					</td>
 					<td >
 						<i class="fa fa-star-half-o icon-state-warning"></i>
 					</td>
 				</tr>
-			{{else}}
-				<tr class="table-row">
-					<td class="table-text" >
-					</td>
-				</tr>
-
-			{{end}}
 			</tbody>
 		</table>
 	</div>

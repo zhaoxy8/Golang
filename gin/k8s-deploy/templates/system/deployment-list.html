@@ -1,4 +1,4 @@
-{{define "system/list-deployment.html"}}
+{{define "system/deployment-list.html"}}
 <!--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -173,13 +173,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li>
 						<a href="#" class=" hvr-bounce-to-right"><i class="fa fa-indent nav_icon"></i> <span class="nav-label">Deployments</span><span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level">
-							<li><a href="list-deployment.html" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>List</a></li>
+							<li><a href="deployment-list.html" class=" hvr-bounce-to-right"> <i class="fa fa-area-chart nav_icon"></i>List</a></li>
 
-							<li><a href="create-deployment.html" class=" hvr-bounce-to-right"><i class="fa fa-map-marker nav_icon"></i>Create</a></li>
+							<li><a href="deployment-create.html" class=" hvr-bounce-to-right"><i class="fa fa-map-marker nav_icon"></i>Create</a></li>
 
-							<li><a href="update-deployment.html" class=" hvr-bounce-to-right"><i class="fa fa-cog nav_icon"></i>Update</a></li>
+							<li><a href="deployment-update.html" class=" hvr-bounce-to-right"><i class="fa fa-cog nav_icon"></i>Update</a></li>
 
-							<li><a href="delete-deployment.html" class=" hvr-bounce-to-right"><i class="fa fa-file-text-o nav_icon"></i>Delete</a></li>
+							<li><a href="deployment-delete.html" class=" hvr-bounce-to-right"><i class="fa fa-file-text-o nav_icon"></i>Delete</a></li>
 						</ul>
 					</li>
                     <li>
@@ -247,29 +247,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="grid-form">
 	<div class="grid-form1">
 	<h3 id="forms-example" class="">Deployments</h3>
-<form action="/namespacesearch/" method="post">
+<form action="/deployment-list/" method="post">
   <div class="form-group">
-		<label for="exampleInputPassword1">KubeConfig</label>
-			<select name="kubeconfig" id="kubeconfig" class="form-control1">
+		<label for="exampleInputEmail1">KubeConfig</label>
+		<select name="kubeconfig" id="kubeconfig" class="form-control1">
 				<option value="dev-dr-config"> INT dev-dr-config</option>
 				<option value="dev-config"> INT dev-config</option>
 				<option value="stg-config"> STG stg-config</option>
 				<option value="prd-config">PRD prd-config</option>>
 		</select>
   </div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">Namespace</label>
+		<input type="namespace" name="namespace" class="form-control" id="namespace" placeholder="default">
+	</div>
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
 </div>
 <div class="grid-form1">
 		<table class="table">
 			<tbody>
-			{{ range $idx, $ns := .namespaces }}
+			{{ range $idx, $ns := .deploymentSlice }}
 				<tr  class="table-row">
 					<td class="table-img">
 						<span class="mar"> {{$ns.Name}}</span>
 					</td>
 					<td class="table-text">
-						<h6> {{$ns.Status.Phase}}</h6>
+						<h6> {{$ns.Spec.Replicas}}</h6>
+					</td>
+					<td class="table-text">
+						<h6> {{$ns.Spec.Template.Spec.(index .Containers 0).Image}}</h6>
 					</td>
 					<td >
 						<i class="fa fa-star-half-o icon-state-warning"></i>
@@ -280,7 +287,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<td class="table-text" >
 					</td>
 				</tr>
-
 			{{end}}
 			</tbody>
 		</table>

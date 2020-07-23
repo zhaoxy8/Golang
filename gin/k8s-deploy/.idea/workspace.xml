@@ -20,7 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4aad6263-4159-4610-b246-d477627087a2" name="默认的" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deployexec/deployexec.go" beforeDir="false" afterPath="$PROJECT_DIR$/deployexec/deployexec.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/system/deployment.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/deployment-list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/system/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/system/namespace.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/namespace.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/../../k8s-job/k8s-deploy/go.mod" afterDir="false" />
@@ -81,16 +84,5 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1595313091774" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/deployexec/deployexec.go</url>
-          <line>188</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

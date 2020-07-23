@@ -76,31 +76,35 @@ func main() {
 	//dp := route.Group("/deployment")
 	//{
 	//	dp.GET("/list", func(c *gin.Context) {
-	//		c.HTML(http.StatusOK,"system/deployment.html",nil)
+	//		c.HTML(http.StatusOK,"system/deployment-list.html",nil)
 	//	})
 	//	dp.GET("/create", func(c *gin.Context) {
-	//		c.HTML(http.StatusOK,"system/create-deployment.html",nil)
+	//		c.HTML(http.StatusOK,"system/create-deployment-list.html",nil)
 	//	})
 	//	dp.GET("/update", func(c *gin.Context) {
-	//		c.HTML(http.StatusOK,"system/update-deployment.html",nil)
+	//		c.HTML(http.StatusOK,"system/update-deployment-list.html",nil)
 	//	})
 	//	dp.GET("/delete", func(c *gin.Context) {
-	//		c.HTML(http.StatusOK,"system/delete-deployment.html",nil)
+	//		c.HTML(http.StatusOK,"system/delete-deployment-list.html",nil)
 	//	})
 	//}
-	route.GET("/list-deployment.html", func(c *gin.Context) {
-		c.HTML(http.StatusOK,"system/list-deployment.html",nil)
+	route.GET("/deployment-list.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/deployment-list.html",nil)
 	})
-	route.GET("/create-deployment.html", func(c *gin.Context) {
-		c.HTML(http.StatusOK,"system/create-deployment.html",nil)
+	route.POST("/deployment-list",deployexec.ListDeployment)
+
+	route.GET("/deployment-create.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/deployment-create.html",nil)
 	})
-	route.GET("/update-deployment.html", func(c *gin.Context) {
-		c.HTML(http.StatusOK,"system/update-deployment.html",nil)
+	route.GET("/deployment-update.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/deployment-update.html",nil)
 	})
-	route.GET("/delete-deployment.html", func(c *gin.Context) {
-		c.HTML(http.StatusOK,"system/delete-deployment.html",nil)
+	route.POST("/deployment-update",deployexec.UpdateDeployment)
+
+	route.GET("/deployment-delete.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/deployment-delete.html",nil)
 	})
-	route.POST("/command",deployexec.ExecComm)
+
 	route.Run("0.0.0.0:9090")
 }
 

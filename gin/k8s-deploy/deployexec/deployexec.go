@@ -140,35 +140,37 @@ func (dc *DeploymentConfig)CreateDeployment(){
 	}
 	fmt.Printf("Created deployment %q.\n", result.GetObjectMeta().GetName())
 }
-func (dc *DeploymentConfig)ListDeployment(){
-	fmt.Printf("Listing deployments in namespace %q:\n", dc.Namespace)
+func (dc *DeploymentConfig)ListDeployment() []appsv1.Deployment{
+	logger.Printf("Listing deployments in namespace %q:\n", dc.Namespace)
 	list, err := dc.DeploymentsClient.List(metav1.ListOptions{})
 	if err != nil {
 		panic(err)
 	}
 	for _, d := range list.Items {
-		fmt.Printf(" * %s (%d replicas)\n", d.Name, *d.Spec.Replicas)
+		logger.Printf(" * %s (%d replicas)\n", d.Name, *d.Spec.Replicas,d.Spec.Template.Spec.Containers[0].Image)
 	}
+	return list.Items
 }
-func (dc *DeploymentConfig)UpdateDeployment(){
-	fmt.Println("Updating deployment...")
+func (dc *DeploymentConfig)UpdateDeployment() (result string){
+	//logger.Println("Updating deployment...")
 	retryErr := retry.RetryOnConflict(retry.DefaultRetry, func() error {
 		// Retrieve the latest version of Deployment before attempting update
 		// RetryOnConflict uses exponential backoff to avoid exhausting the apiserver
 		result, getErr := dc.DeploymentsClient.Get(dc.Deployment, metav1.GetOptions{})
 		if getErr != nil {
-			panic(fmt.Errorf("Failed to get latest version of Deployment: %v", getErr))
+			return fmt.Errorf("Failed to get latest version of Deployment: %v", getErr)
 		}
 
-		result.Spec.Replicas = dc.int32Ptr(dc.Replicas)                           // reduce replica count
+		result.Spec.Replicas = dc.int32Ptr(dc.Replicas)          // reduce replica count
 		result.Spec.Template.Spec.Containers[0].Image = dc.Image // change nginx version
 		_, updateErr := dc.DeploymentsClient.Update(result)
 		return updateErr
 	})
 	if retryErr != nil {
-		panic(fmt.Errorf("Update failed: %v", retryErr))
+		return fmt.Sprintf("Update failed: %v", retryErr)
 	}
-	fmt.Println("Updated deployment...")
+	//logger.Println("Updated deployment...")
+	return fmt.Sprintf("Updated deployment %s successed",dc.Deployment)
 }
 func (dc *DeploymentConfig)DeleteDeployment(){
 	fmt.Println("Deleting deployment...")
@@ -206,6 +208,7 @@ func ExecComm(c *gin.Context){
 	})
 }
 
+
 func ListNameSpace(c *gin.Context){
 	kubeconfigform := c.PostForm("kubeconfig")
 	//MTInstance := c.PostForm("selectInstance")
@@ -213,5 +216,41 @@ func ListNameSpace(c *gin.Context){
 	namespaces := kubeConfig.ListNameSpace()
 	c.HTML(http.StatusOK,"system/namespace.html",gin.H{
 		"namespaces":namespaces,
+	})
+}
+
+func ListDeployment(c *gin.Context){
+	kubeconfigform := c.PostForm("kubeconfig")
+	kubeConfig := NewKubeConfig(kubeconfigform)
+	namespace := c.PostForm("namespace")
+	deploymentConfig := &DeploymentConfig{
+		KubeConfig: kubeConfig,
+		Namespace: namespace,
+	}
+	deploymentConfig.clinetConfig()
+	deploymentSlice := deploymentConfig.ListDeployment()
+	c.HTML(http.StatusOK,"system/deployment-list.html",gin.H{
+		"deploymentSlice":deploymentSlice,
+	})
+}
+
+func UpdateDeployment(c *gin.Context){
+	kubeconfigform := c.PostForm("kubeconfig")
+	kubeConfig := NewKubeConfig(kubeconfigform)
+	namespace := c.PostForm("namespace")
+	deployment := c.PostForm("deployment")
+	image := c.PostForm("image")
+	replicas,_ := strconv.Atoi(c.PostForm("replicas"))
+	deploymentConfig := &DeploymentConfig{
+		KubeConfig: kubeConfig,
+		Namespace: namespace,
+		Deployment: deployment,
+		Replicas: int32(replicas),
+		Image: image,
+	}
+	deploymentConfig.clinetConfig()
+	result := deploymentConfig.UpdateDeployment()
+	c.HTML(http.StatusOK,"system/deployment-update.html",gin.H{
+		"result":result,
 	})
 }
