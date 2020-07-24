@@ -67,6 +67,9 @@ func main() {
 	route.GET("/signup.html", func(c *gin.Context) {
 		c.HTML(http.StatusOK,"system/signup.html",nil)
 	})
+	route.GET("/profile.html", func(c *gin.Context) {
+		c.HTML(http.StatusOK,"system/profile.html",nil)
+	})
 	//查询namespace执行器
 	route.GET("/namespace.html", func(c *gin.Context) {
 		c.HTML(http.StatusOK,"system/namespace.html",nil)
@@ -104,7 +107,7 @@ func main() {
 	route.GET("/deployment-delete.html", func(c *gin.Context) {
 		c.HTML(http.StatusOK,"system/deployment-delete.html",nil)
 	})
-
+	route.POST("/deployment-delete",deployexec.DeleteDeployment)
 	route.Run("0.0.0.0:9090")
 }
 

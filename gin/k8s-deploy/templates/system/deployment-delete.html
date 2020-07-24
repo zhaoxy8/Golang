@@ -247,7 +247,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="grid-form">
 	<div class="grid-form1">
 	<h3 id="forms-example" class="">Deployments</h3>
-<form action="/namespacesearch/" method="post">
+<form action="/deployment-delete/" method="post">
   <div class="form-group">
 		<label for="exampleInputPassword1">KubeConfig</label>
 			<select name="kubeconfig" id="kubeconfig" class="form-control1">
@@ -257,31 +257,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<option value="prd-config">PRD prd-config</option>>
 		</select>
   </div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">Namespace</label>
+		<input type="namespace" name="namespace" class="form-control" id="namespace" placeholder="default">
+	</div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">Deployment</label>
+		<input type="deployment" name="deployment" class="form-control" id="deployment" placeholder="busybox">
+	</div>
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
 </div>
 <div class="grid-form1">
 		<table class="table">
 			<tbody>
-			{{ range $idx, $ns := .namespaces }}
-				<tr  class="table-row">
-					<td class="table-img">
-						<span class="mar"> {{$ns.Name}}</span>
-					</td>
-					<td class="table-text">
-						<h6> {{$ns.Status.Phase}}</h6>
-					</td>
-					<td >
-						<i class="fa fa-star-half-o icon-state-warning"></i>
-					</td>
-				</tr>
-			{{else}}
-				<tr class="table-row">
-					<td class="table-text" >
-					</td>
-				</tr>
-
-			{{end}}
+			<tr  class="table-row">
+				<td class="table-text">
+					<div class="alert alert-success" role="alert">
+						<strong>{{.result}}</strong>
+					</div>
+				</td>
+			</tr>
 			</tbody>
 		</table>
 	</div>

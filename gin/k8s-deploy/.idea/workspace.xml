@@ -22,8 +22,10 @@
     <list default="true" id="4aad6263-4159-4610-b246-d477627087a2" name="默认的" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/deployexec/deployexec.go" beforeDir="false" afterPath="$PROJECT_DIR$/deployexec/deployexec.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/deployment-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/deployment-list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/system/deployment-update.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/deployment-update.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/system/deployment-create.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/deployment-create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/system/deployment-delete.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/deployment-delete.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/system/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/system/profile.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

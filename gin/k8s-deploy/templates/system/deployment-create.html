@@ -244,44 +244,193 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		    </div>
 		<!--//banner-->
  	<!--grid-->
+<div class="validation-system">
+
+			   <div class="validation-form">
+				   <!---->
+				   <form action="/namespacesearch/" method="post">
+					   <div class="vali-form">
+						   <div class="clearfix"> </div>
+						   <div class="col-md-12 form-group2 group-mail">
+						   <label class="control-label">KubeConfig</label>
+						   <select name="kubeconfig" id="kubeconfig">
+							   <option value="dev-dr-config"> INT dev-dr-config</option>
+							   <option value="dev-config"> INT dev-config</option>
+							   <option value="stg-config"> STG stg-config</option>
+							   <option value="prd-config">PRD prd-config</option>>
+						   </select>
+						   </div>
+					   </div>
+					   <div class="vali-form">
+						   <div class="col-md-6 form-group1">
+							   <label class="control-label">Namespace</label>
+							   <input type="text" name="namespace"  id="namespace" placeholder="default" required="">
+						   </div>
+						   <div class="col-md-6 form-group1 form-last">
+							   <label class="control-label">Deployment</label>
+							   <input type="text" name="deployment"  id="deployment"  placeholder="busybox" required="">
+						   </div>
+						   <div class="clearfix"> </div>
+						   <div class="col-md-6 form-group1">
+							   <label class="control-label">Image</label>
+							   <input type="text" name="image" id="image"  placeholder="zhaoxy8/busybox" required="">
+						   </div>
+						   <div class="col-md-6 form-group1 form-last">
+							   <label class="control-label">Replicas</label>
+							   <input type="text" name="replicas"  id="replicas"  placeholder="2" required="">
+						   </div>
+						   <div class="clearfix"> </div>
+						   <div class="col-md-6 form-group1">
+							   <label class="control-label">ContainersName</label>
+							   <input type="text" name="containername" id="containername"  placeholder="dubbo-demo-service" required="">
+						   </div>
+						   <div class="col-md-6 form-group1 form-last">
+							   <label class="control-label">ContainerPort</label>
+							   <input type="text" name="containerport"  id="containerport"  placeholder="20880" required="">
+						   </div>
+						   <div class="clearfix"> </div>
+						   <div class="col-md-6 form-group2 group-mail">
+							   <label class="control-label">Protocol</label> <br>
+							   <select name="protocol" id="protocol" class="">
+								   <option value="TCP">TCP</option>
+								   <option value="UDP">UDP</option>
+								   <option value="SCTP">SCTP</option>
+							   </select>
+						   </div>
+						   <div class="col-md-6 form-group2 group-mail">
+							   <label class="control-label">ImagePullPolicy</label><br>
+							   <select name="imagePullPolicy" id="imagePullPolicy" >
+								   <option value="Always">Always</option>
+								   <option value="IfNotPresent">IfNotPresent</option>
+								   <option value="Never">Never</option>
+							   </select>
+						   </div>
+						   <div class="clearfix"> </div>
+						   <div class="col-md-6 form-group2 group-mail">
+							   <label class="control-label">RestartPolicy</label> <br>
+							   <select name="restartpolicy" id="restartpolicy" class="">
+								   <option value="Always">Always</option>
+								   <option value="OnFailure">OnFailure</option>
+							   </select>
+						   </div>
+						   <div class="col-md-6 form-group2 group-mail">
+							   <label class="control-label">imagePullSecrets</label><br>
+							   <select name="imagePullSecrets" id="imagePullSecrets" >
+								   <option value=""></option>
+								   <option value="ali-secret">ali-secret</option>
+							   </select>
+						   </div>
+					   </div>
+
+					   <div class="col-md-12 form-group">
+						   &nbsp;&nbsp;&nbsp;<label class="control-label">Labels</label><br>
+						   &nbsp;&nbsp;&nbsp;<input type="text" name="key"  id="key" placeholder="app">:<input type="text" name="value"  id="value" placeholder="dubbo-demo-service">
+					   </div>
+					   <div class="clearfix"> </div>
+					   <div id="div">
+						   <input type="button"  value="增加" onclick="addText()"/>
+					   </div>
+					   <div class="col-md-12 form-group1 group-mail">
+						   <label class="control-label">Url</label>
+						   <input type="text" placeholder="Current Website Url" required="">
+					   </div>
+					   <div class="clearfix"> </div>
+					   <div class="col-md-12 form-group2 group-mail">
+						   <label class="control-label">Language</label>
+						   <select>
+							   <option value="">English</option>
+							   <option value="">Japanese</option>
+							   <option value="">Russian</option>
+							   <option value="">Arabic</option>
+							   <option value="">Spanish</option>
+						   </select>
+					   </div>
+					   <div class="clearfix"> </div>
+					   <div class="col-md-12 form-group1 ">
+						   <label class="control-label">Your Comment</label>
+						   <textarea  placeholder="Your Comment..." required="">Your Comment.....</textarea>
+					   </div>
+					   <div class="clearfix"> </div>
+					   <div class="col-md-12 form-group">
+						   <button type="submit" class="btn btn-primary">Submit</button>
+						   <button type="reset" class="btn btn-default">Reset</button>
+					   </div>
+					   <div class="clearfix"> </div>
+				   </form>
+
+				   <!---->
+			   </div>
+
+		   </div>
 <div class="grid-form">
 	<div class="grid-form1">
 	<h3 id="forms-example" class="">Deployments</h3>
 <form action="/namespacesearch/" method="post">
-  <div class="form-group">
-		<label for="exampleInputPassword1">KubeConfig</label>
-			<select name="kubeconfig" id="kubeconfig" class="form-control1">
-				<option value="dev-dr-config"> INT dev-dr-config</option>
-				<option value="dev-config"> INT dev-config</option>
-				<option value="stg-config"> STG stg-config</option>
-				<option value="prd-config">PRD prd-config</option>>
+
+	<div class="form-group">
+		<label for="exampleInputEmail1">Namespace</label>
+		<input type="namespace" name="namespace" class="form-control" id="namespace" placeholder="default">
+	</div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">Deployment</label>
+		<input type="deployment" name="deployment" class="form-control" id="deployment" placeholder="busybox">
+	</div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">Image</label>
+		<input type="deployment" name="image" class="form-control" id="image" placeholder="zhaoxy8/busybox">
+	</div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">Replicas</label>
+		<input type="replicas" name="replicas" class="form-control" id="replicas" placeholder="2">
+	</div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">containers</label>
+		<input type="containername" name="containername" class="form-control" id="containername" placeholder="dubbo-demo-service">
+	</div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">containerPort</label>
+		<input type="containerPort" name="containerPort" class="form-control" id="containerPort" placeholder="20880">
+	</div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">protocol</label>
+		<select name="protocol" id="protocol" class="form-control1">
+			<option value="TCP">TCP</option>
+			<option value="HTTP">HTTP</option>
 		</select>
-  </div>
+	</div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">imagePullPolicy</label>
+		<select name="imagePullPolicy" id="imagePullPolicy" class="form-control1">
+			<option value="Always">Always</option>
+			<option value="IfNotPresent">IfNotPresent</option>
+			<option value="Never">Never</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">imagePullSecrets</label>
+		<input type="containerPort" name="imagePullSecrets" class="form-control" id="imagePullSecrets" placeholder="ali-secret">
+	</div>
+	<div class="form-group">
+		<label for="exampleInputEmail1">restartPolicy</label>
+		<select name="restartPolicy" id="restartPolicy" class="form-control1">
+			<option value="Always">Always</option>
+			<option value="OnFailure">OnFailure</option>
+		</select>
+	</div>
+
   <button type="submit" class="btn btn-default">Submit</button>
 </form>
 </div>
 <div class="grid-form1">
 		<table class="table">
 			<tbody>
-			{{ range $idx, $ns := .namespaces }}
-				<tr  class="table-row">
-					<td class="table-img">
-						<span class="mar"> {{$ns.Name}}</span>
-					</td>
-					<td class="table-text">
-						<h6> {{$ns.Status.Phase}}</h6>
-					</td>
-					<td >
-						<i class="fa fa-star-half-o icon-state-warning"></i>
-					</td>
-				</tr>
-			{{else}}
-				<tr class="table-row">
-					<td class="table-text" >
-					</td>
-				</tr>
-
-			{{end}}
+			<tr  class="table-row">
+				<td class="table-text">
+					<div class="alert alert-success" role="alert">
+						<strong>{{.result}}</strong>
+					</div>
+				</td>
+			</tr>
 			</tbody>
 		</table>
 	</div>

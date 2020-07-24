@@ -204,15 +204,16 @@ func (dc *DeploymentConfig)UpdateDeployment() (result string){
 	//logger.Println("Updated deployment...")
 	return fmt.Sprintf("Updated deployment %s successed",dc.Deployment)
 }
-func (dc *DeploymentConfig)DeleteDeployment(){
-	fmt.Println("Deleting deployment...")
+func (dc *DeploymentConfig)DeleteDeployment() (result string){
+	//logger.Println("Deleting deployment...")
 	deletePolicy := metav1.DeletePropagationForeground
 	if err := dc.DeploymentsClient.Delete(dc.Deployment, &metav1.DeleteOptions{
 		PropagationPolicy: &deletePolicy,
 	}); err != nil {
-		panic(err)
+		return fmt.Sprintf("Delete failed: %v",err.Error())
 	}
-	fmt.Println("Deleted deployment.")
+	//logger.Println("Deleted deployment.")
+	return fmt.Sprintf("Deleted deployment %s successed",dc.Deployment)
 }
 func (dc *DeploymentConfig)int32Ptr(i int32) *int32 { return &i }
 func (dc *DeploymentConfig)Run(){
@@ -264,7 +265,45 @@ func ListDeployment(c *gin.Context){
 	})
 }
 
+func DeleteDeployment(c *gin.Context){
+	kubeconfigform := c.PostForm("kubeconfig")
+	kubeConfig := NewKubeConfig(kubeconfigform)
+	namespace := c.PostForm("namespace")
+	deployment := c.PostForm("deployment")
+	deploymentConfig := &DeploymentConfig{
+		KubeConfig: kubeConfig,
+		Namespace: namespace,
+		Deployment: deployment,
+	}
+	deploymentConfig.clinetConfig()
+	result := deploymentConfig.DeleteDeployment()
+	c.HTML(http.StatusOK,"system/deployment-delete.html",gin.H{
+		"result":result,
+	})
+}
+
 func UpdateDeployment(c *gin.Context){
+	kubeconfigform := c.PostForm("kubeconfig")
+	kubeConfig := NewKubeConfig(kubeconfigform)
+	namespace := c.PostForm("namespace")
+	deployment := c.PostForm("deployment")
+	image := c.PostForm("image")
+	replicas,_ := strconv.Atoi(c.PostForm("replicas"))
+	deploymentConfig := &DeploymentConfig{
+		KubeConfig: kubeConfig,
+		Namespace: namespace,
+		Deployment: deployment,
+		Replicas: int32(replicas),
+		Image: image,
+	}
+	deploymentConfig.clinetConfig()
+	result := deploymentConfig.UpdateDeployment()
+	c.HTML(http.StatusOK,"system/deployment-update.html",gin.H{
+		"result":result,
+	})
+}
+
+func CreateDeployment(c *gin.Context){
 	kubeconfigform := c.PostForm("kubeconfig")
 	kubeConfig := NewKubeConfig(kubeconfigform)
 	namespace := c.PostForm("namespace")
