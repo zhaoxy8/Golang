@@ -248,7 +248,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 			   <div class="validation-form">
 				   <!---->
-				   <form action="/namespacesearch/" method="post">
+				   <form action="/deployment-create/" method="post">
 					   <div class="vali-form">
 						   <div class="clearfix"> </div>
 						   <div class="col-md-12 form-group2 group-mail">
@@ -323,32 +323,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					   </div>
 
 					   <div class="col-md-12 form-group">
-						   &nbsp;&nbsp;&nbsp;<label class="control-label">Labels</label><br>
-						   &nbsp;&nbsp;&nbsp;<input type="text" name="key"  id="key" placeholder="app">:<input type="text" name="value"  id="value" placeholder="dubbo-demo-service">
-					   </div>
-					   <div class="clearfix"> </div>
-					   <div id="div">
-						   <input type="button"  value="增加" onclick="addText()"/>
-					   </div>
-					   <div class="col-md-12 form-group1 group-mail">
-						   <label class="control-label">Url</label>
-						   <input type="text" placeholder="Current Website Url" required="">
-					   </div>
-					   <div class="clearfix"> </div>
-					   <div class="col-md-12 form-group2 group-mail">
-						   <label class="control-label">Language</label>
-						   <select>
-							   <option value="">English</option>
-							   <option value="">Japanese</option>
-							   <option value="">Russian</option>
-							   <option value="">Arabic</option>
-							   <option value="">Spanish</option>
-						   </select>
-					   </div>
-					   <div class="clearfix"> </div>
-					   <div class="col-md-12 form-group1 ">
-						   <label class="control-label">Your Comment</label>
-						   <textarea  placeholder="Your Comment..." required="">Your Comment.....</textarea>
+						   <label class="control-label">Labels</label><br>
+						   <input type="text" name="lablekey1"  id="lablekey1" class="btn btn-default" placeholder="app">:
+						   <input type="text" name="lablevalue1"  id="lablevalue1" class="btn btn-default" placeholder="dubbo-demo-service">
+						   <input type="button"  value="增加" class="btn btn-default" onclick="addText()"/>
 					   </div>
 					   <div class="clearfix"> </div>
 					   <div class="col-md-12 form-group">
@@ -360,68 +338,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 				   <!---->
 			   </div>
-
-		   </div>
-<div class="grid-form">
 	<div class="grid-form1">
-	<h3 id="forms-example" class="">Deployments</h3>
-<form action="/namespacesearch/" method="post">
-
-	<div class="form-group">
-		<label for="exampleInputEmail1">Namespace</label>
-		<input type="namespace" name="namespace" class="form-control" id="namespace" placeholder="default">
-	</div>
-	<div class="form-group">
-		<label for="exampleInputEmail1">Deployment</label>
-		<input type="deployment" name="deployment" class="form-control" id="deployment" placeholder="busybox">
-	</div>
-	<div class="form-group">
-		<label for="exampleInputEmail1">Image</label>
-		<input type="deployment" name="image" class="form-control" id="image" placeholder="zhaoxy8/busybox">
-	</div>
-	<div class="form-group">
-		<label for="exampleInputEmail1">Replicas</label>
-		<input type="replicas" name="replicas" class="form-control" id="replicas" placeholder="2">
-	</div>
-	<div class="form-group">
-		<label for="exampleInputEmail1">containers</label>
-		<input type="containername" name="containername" class="form-control" id="containername" placeholder="dubbo-demo-service">
-	</div>
-	<div class="form-group">
-		<label for="exampleInputEmail1">containerPort</label>
-		<input type="containerPort" name="containerPort" class="form-control" id="containerPort" placeholder="20880">
-	</div>
-	<div class="form-group">
-		<label for="exampleInputEmail1">protocol</label>
-		<select name="protocol" id="protocol" class="form-control1">
-			<option value="TCP">TCP</option>
-			<option value="HTTP">HTTP</option>
-		</select>
-	</div>
-	<div class="form-group">
-		<label for="exampleInputEmail1">imagePullPolicy</label>
-		<select name="imagePullPolicy" id="imagePullPolicy" class="form-control1">
-			<option value="Always">Always</option>
-			<option value="IfNotPresent">IfNotPresent</option>
-			<option value="Never">Never</option>
-		</select>
-	</div>
-	<div class="form-group">
-		<label for="exampleInputEmail1">imagePullSecrets</label>
-		<input type="containerPort" name="imagePullSecrets" class="form-control" id="imagePullSecrets" placeholder="ali-secret">
-	</div>
-	<div class="form-group">
-		<label for="exampleInputEmail1">restartPolicy</label>
-		<select name="restartPolicy" id="restartPolicy" class="form-control1">
-			<option value="Always">Always</option>
-			<option value="OnFailure">OnFailure</option>
-		</select>
-	</div>
-
-  <button type="submit" class="btn btn-default">Submit</button>
-</form>
-</div>
-<div class="grid-form1">
 		<table class="table">
 			<tbody>
 			<tr  class="table-row">
@@ -434,7 +351,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</tbody>
 		</table>
 	</div>
-</div>
+ </div>
+
 <!----->
 
 <!---->

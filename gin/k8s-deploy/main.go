@@ -99,6 +99,7 @@ func main() {
 	route.GET("/deployment-create.html", func(c *gin.Context) {
 		c.HTML(http.StatusOK,"system/deployment-create.html",nil)
 	})
+	route.POST("/deployment-create",deployexec.CreateDeployment)
 	route.GET("/deployment-update.html", func(c *gin.Context) {
 		c.HTML(http.StatusOK,"system/deployment-update.html",nil)
 	})

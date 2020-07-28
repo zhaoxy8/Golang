@@ -70,6 +70,14 @@ type DeploymentConfig struct {
 	Deployment string
 	Replicas int32
 	Namespace string
+	Containersname string
+	Containerport int32
+	Protocol apiv1.Protocol
+	ImagePullPolicy apiv1.PullPolicy
+	Restartpolicy string
+	ImagePullSecrets string
+	Lablekey1 string
+	Lablevalue1 string
 	DeploymentsClient v1.DeploymentInterface
 }
 // NewDeploymentConfig 构造方法
@@ -113,7 +121,7 @@ func (dc *DeploymentConfig)clinetConfig() {
 	deploymentsClient := dc.KubeConfig.ClientSet.AppsV1().Deployments(dc.Namespace)
 	dc.DeploymentsClient = deploymentsClient
 }
-func (dc *DeploymentConfig)CreateDeployment(){
+func (dc *DeploymentConfig)CreateDeployment()(message string){
 	deployment := &appsv1.Deployment{
 		ObjectMeta: metav1.ObjectMeta{
 			Name: dc.Deployment,
@@ -122,28 +130,28 @@ func (dc *DeploymentConfig)CreateDeployment(){
 			Replicas: dc.int32Ptr(dc.Replicas),
 			Selector: &metav1.LabelSelector{
 				MatchLabels: map[string]string{
-					"app": "demo",
+					dc.Lablekey1: dc.Lablevalue1,
 				},
 			},
 			Template: apiv1.PodTemplateSpec{
 				ObjectMeta: metav1.ObjectMeta{
 					Labels: map[string]string{
-						"app": "demo",
+						dc.Lablekey1: dc.Lablevalue1,
 					},
 				},
 				Spec: apiv1.PodSpec{
 					Containers: []apiv1.Container{
 						{
-							Name:  "web",
+							Name:  dc.Containersname,
 							Image: dc.Image,
 							Ports: []apiv1.ContainerPort{
 								{
 									Name:          "http",
-									Protocol:      apiv1.ProtocolTCP,
-									ContainerPort: 80,
+									Protocol:      dc.Protocol,
+									ContainerPort: dc.Containerport,
 								},
 							},
-							ImagePullPolicy: apiv1.PullIfNotPresent,
+							ImagePullPolicy: dc.ImagePullPolicy,
 							Command: []string{"sh","-c","sleep 3600"},
 						},
 					},
@@ -152,12 +160,12 @@ func (dc *DeploymentConfig)CreateDeployment(){
 		},
 	}
 	// Create Deployment
-	fmt.Println("Creating deployment...")
+	logger.Println("Creating deployment...")
 	result, err := dc.DeploymentsClient.Create(deployment)
 	if err != nil {
-		panic(err)
+		return fmt.Sprintf(err.Error())
 	}
-	fmt.Printf("Created deployment %q.\n", result.GetObjectMeta().GetName())
+	return  fmt.Sprintf("Created deployment %q.\n", result.GetObjectMeta().GetName())
 }
 func (dc *DeploymentConfig)ListDeployment() []*Deployment{
 	logger.Printf("Listing deployments in namespace %q:\n", dc.Namespace)
@@ -310,16 +318,34 @@ func CreateDeployment(c *gin.Context){
 	deployment := c.PostForm("deployment")
 	image := c.PostForm("image")
 	replicas,_ := strconv.Atoi(c.PostForm("replicas"))
+	containername := c.PostForm("containername")
+	logger.Println(containername)
+	containerport,_ := strconv.Atoi(c.PostForm("containerport"))
+	protocol := apiv1.Protocol(c.PostForm("protocol"))
+	imagePullPolicy := apiv1.PullPolicy(c.PostForm("imagePullPolicy"))
+	restartpolicy := c.PostForm("restartpolicy")
+	imagePullSecrets := c.PostForm("imagePullSecrets")
+	lablekey1 := c.PostForm("lablekey1")
+	lablevalue1 := c.PostForm("lablevalue1")
+
 	deploymentConfig := &DeploymentConfig{
 		KubeConfig: kubeConfig,
 		Namespace: namespace,
 		Deployment: deployment,
 		Replicas: int32(replicas),
 		Image: image,
+		Containersname: containername,
+		Containerport: int32(containerport),
+		Protocol: protocol,
+		ImagePullPolicy: imagePullPolicy,
+		Restartpolicy: restartpolicy,
+		ImagePullSecrets: imagePullSecrets,
+		Lablekey1: lablekey1,
+		Lablevalue1: lablevalue1,
 	}
 	deploymentConfig.clinetConfig()
-	result := deploymentConfig.UpdateDeployment()
-	c.HTML(http.StatusOK,"system/deployment-update.html",gin.H{
+	result := deploymentConfig.CreateDeployment()
+	c.HTML(http.StatusOK,"system/deployment-create.html",gin.H{
 		"result":result,
 	})
 }
