@@ -14,6 +14,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 )
 
 // logger 日志变量
@@ -66,22 +67,24 @@ func (kc *KubeConfig)clinetConfig() {
 type DeploymentConfig struct {
 	KubeConfig *KubeConfig
 	Image string
-	Command string
 	Deployment string
 	Replicas int32
 	Namespace string
 	Containersname string
 	Containerport int32
+	Containerportname string
+	Command []string
 	Protocol apiv1.Protocol
 	ImagePullPolicy apiv1.PullPolicy
 	Restartpolicy string
 	ImagePullSecrets string
+	LabelsMap map[string]string
 	Lablekey1 string
 	Lablevalue1 string
 	DeploymentsClient v1.DeploymentInterface
 }
-// NewDeploymentConfig 构造方法
-func NewDeploymentConfig(kubeConfig *KubeConfig,Image string,Command string,Deployment string,Replicas int32,Namespace string) *DeploymentConfig{
+// NewDeploymentConfig 构造方法 传递的参数不全，需要补充
+func NewDeploymentConfig(kubeConfig *KubeConfig,Image string,Command []string,Deployment string,Replicas int32,Namespace string) *DeploymentConfig{
 	deploymentConfig := &DeploymentConfig{
 		KubeConfig: kubeConfig,
 		Image: Image,
@@ -103,8 +106,9 @@ type Deployment struct {
 	Replicas int32
 	Namespace string
 	Status int32
+	Labels map[string]string
 }
-func NewDeployment(Image string,Command []string,Name string,Replicas int32,Namespace string,Status int32) *Deployment{
+func NewDeployment(Image string,Command []string,Name string,Replicas int32,Namespace string,Status int32,Labels map[string]string) *Deployment{
 	deployment := &Deployment{
 		Image: Image,
 		Command: Command,
@@ -112,6 +116,7 @@ func NewDeployment(Image string,Command []string,Name string,Replicas int32,Name
 		Replicas: Replicas,
 		Namespace: Namespace,
 		Status:Status,
+		Labels: Labels,
 	}
 	return deployment
 }
@@ -129,15 +134,11 @@ func (dc *DeploymentConfig)CreateDeployment()(message string){
 		Spec: appsv1.DeploymentSpec{
 			Replicas: dc.int32Ptr(dc.Replicas),
 			Selector: &metav1.LabelSelector{
-				MatchLabels: map[string]string{
-					dc.Lablekey1: dc.Lablevalue1,
-				},
+				MatchLabels: dc.LabelsMap,
 			},
 			Template: apiv1.PodTemplateSpec{
 				ObjectMeta: metav1.ObjectMeta{
-					Labels: map[string]string{
-						dc.Lablekey1: dc.Lablevalue1,
-					},
+					Labels: dc.LabelsMap,
 				},
 				Spec: apiv1.PodSpec{
 					Containers: []apiv1.Container{
@@ -146,13 +147,13 @@ func (dc *DeploymentConfig)CreateDeployment()(message string){
 							Image: dc.Image,
 							Ports: []apiv1.ContainerPort{
 								{
-									Name:          "http",
+									Name:          dc.Containerportname,
 									Protocol:      dc.Protocol,
 									ContainerPort: dc.Containerport,
 								},
 							},
 							ImagePullPolicy: dc.ImagePullPolicy,
-							Command: []string{"sh","-c","sleep 3600"},
+							Command: dc.Command,
 						},
 					},
 				},
@@ -175,7 +176,8 @@ func (dc *DeploymentConfig)ListDeployment() []*Deployment{
 	}
 	//初始化一个deployment的切片
 	deploymentSlice = make([]*Deployment,0)
-	//循环每个deployment构造所需参数的deployment结构体
+	//循环每个deployment构造所需参数的deployment结构体，
+	//目前只支持1个deployment中包含1个containers
 	for _, d := range list.Items {
 		deployment := NewDeployment(
 			d.Spec.Template.Spec.Containers[0].Image,
@@ -183,7 +185,8 @@ func (dc *DeploymentConfig)ListDeployment() []*Deployment{
 			d.Name,
 			*d.Spec.Replicas,
 			d.Namespace,
-			d.Status.ReadyReplicas)
+			d.Status.ReadyReplicas,
+			d.Spec.Selector.MatchLabels)
 		//把deployment结构体放到切片中
 		deploymentSlice = append(deploymentSlice, deployment)
 		logger.Printf(" %d (%s replicas) %s\n",deployment.Status, deployment.Namespace,deployment.Image)
@@ -234,7 +237,7 @@ func ExecComm(c *gin.Context){
 	kubeConfig := NewKubeConfig(kubeconfigform)
 	namespace := c.PostForm("namespace")
 	deployment := c.PostForm("deployment")
-	command := c.PostForm("command")
+	command := strings.Split(c.PostForm("command")," ")
 	image := c.PostForm("image")
 	replicas,_ := strconv.Atoi(c.PostForm("replicas"))
 	//MTInstance := c.PostForm("selectInstance")
@@ -319,14 +322,25 @@ func CreateDeployment(c *gin.Context){
 	image := c.PostForm("image")
 	replicas,_ := strconv.Atoi(c.PostForm("replicas"))
 	containername := c.PostForm("containername")
-	logger.Println(containername)
 	containerport,_ := strconv.Atoi(c.PostForm("containerport"))
 	protocol := apiv1.Protocol(c.PostForm("protocol"))
+	containerportname := c.PostForm("containerportname")
+	//command默认是空的Slice，如果有shell命令需要执行才需要构造新的命令行Slice
+	command := []string{}
+	if c.PostForm("command") != "" {
+		command = []string{"sh", "-c"}
+		command = append(command, c.PostForm("command"))
+	}
+	//logger.Println(command)
 	imagePullPolicy := apiv1.PullPolicy(c.PostForm("imagePullPolicy"))
 	restartpolicy := c.PostForm("restartpolicy")
 	imagePullSecrets := c.PostForm("imagePullSecrets")
 	lablekey1 := c.PostForm("lablekey1")
 	lablevalue1 := c.PostForm("lablevalue1")
+	lablekey2 := c.PostForm("lablekey2")
+	lablevalue2 := c.PostForm("lablevalue2")
+	lablekey3 := c.PostForm("lablekey3")
+	lablevalue3 := c.PostForm("lablevalue3")
 
 	deploymentConfig := &DeploymentConfig{
 		KubeConfig: kubeConfig,
@@ -336,13 +350,33 @@ func CreateDeployment(c *gin.Context){
 		Image: image,
 		Containersname: containername,
 		Containerport: int32(containerport),
+		Containerportname: containerportname,
+		Command: command,
 		Protocol: protocol,
 		ImagePullPolicy: imagePullPolicy,
 		Restartpolicy: restartpolicy,
 		ImagePullSecrets: imagePullSecrets,
+		LabelsMap: make(map[string]string),
 		Lablekey1: lablekey1,
 		Lablevalue1: lablevalue1,
 	}
+	//必须添加lable
+	deploymentConfig.LabelsMap[lablekey1] = lablevalue1
+	//如果lable2,lable3不为空，也添加到deployment的lable中
+	//for i := 2; i < 3; i++ {
+	//	key :=  fmt.Sprintf("lablekey%d",i)
+	//	value := fmt.Sprintf("lablevalue%d",i)
+	//	if key != "" && value != "" {
+	//		deploymentConfig.LabelsMap[key] = value
+	//	}
+	//}
+	if lablekey2 != "" && lablevalue2 != "" {
+		deploymentConfig.LabelsMap[lablekey2] = lablevalue2
+	}
+	if lablekey3 != "" && lablevalue3 != "" {
+		deploymentConfig.LabelsMap[lablekey3] = lablevalue3
+	}
+	logger.Println(deploymentConfig.LabelsMap)
 	deploymentConfig.clinetConfig()
 	result := deploymentConfig.CreateDeployment()
 	c.HTML(http.StatusOK,"system/deployment-create.html",gin.H{

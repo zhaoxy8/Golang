@@ -284,6 +284,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<span class="work">Image</span>
 				</td>
 				<td class="table-text">
+					<span class="work">Lables</span>
+				</td>
+				<td class="table-text">
 					<span class="work">Command</span>
 				</td>
 				<td >
@@ -306,6 +309,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</td>
 					<td class="table-text">
 						<h6> {{$ns.Image}}</h6>
+					</td>
+					<td class="table-text">
+						{{ range $key, $values := $ns.Labels }}
+						<h6> {{$key}}={{$values}}</h6>
+						{{end}}
 					</td>
 					<td class="table-text">
 						<h6> {{$ns.Command}}</h6>
