@@ -1,0 +1,5 @@
+{
+  "topics": ["ecommerce-test"],
+  "servers": ["10.85.43.81:9092","10.85.43.82:9092","10.85.43.83:9092"],
+  "consumerGroup": "ecom-test"
+}

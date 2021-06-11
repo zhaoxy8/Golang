@@ -12,7 +12,13 @@
 <h1>年龄: {{ .u1.Age }}</h1>
 <h1>性别: {{ .u1.Gender }}</h1>
 <hr>
-
+<hr>
+{{ range $idx, $hobby := .m1 }}
+  <p>{{$idx}} - {{$hobby}}</p>
+{{else}}
+没爱好
+{{end}}
+<hr>
 <h1>host: {{ .m1.host }}</h1>
 <h1>result: {{ .m1.result }}</h1>
 <hr>

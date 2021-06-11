@@ -20,7 +20,8 @@ type Person struct {
 }
 
 func main() {
-	client, err := elastic.NewClient(elastic.SetURL("internal-aabe4ee8b6bf24baa91763ce54059c4a-576947003.cn-north-1.elb.amazonaws.com.cn:9200"))
+
+	client, err := elastic.NewClient(elastic.SetURL("es-cn-nif1w339o000rryq1.elasticsearch.aliyuncs.com:9200"))
 	if err != nil {
 		panic(err)
 	}
@@ -32,7 +33,7 @@ func main() {
 	}
 	//链式操作
 	put1, err := client.Index().
-		Index("user").
+		Index("go-user").
 		BodyJson(p1).
 		Do(context.Background())
 	if err != nil {

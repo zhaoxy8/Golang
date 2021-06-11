@@ -1,5 +1,5 @@
-module aibixby.com/kafka_demo
+module app
 
-go 1.14
+go 1.15
 
-require github.com/Shopify/sarama v1.26.3
+require github.com/Shopify/sarama v1.28.0

@@ -48,6 +48,6 @@ func deleteing(c *gin.Context)  {
 	})
 }
 func sayhello(c *gin.Context){
-	c.String(http.StatusOK,"id","hello")
+	c.String(http.StatusOK, "container_health{container_name=\"membership-provider-cust\"} %s","0")
 }
 

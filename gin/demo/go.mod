@@ -1,5 +1,5 @@
-module Golong/gin/demo
+module main
 
-go 1.14
+go 1.15
 
 require github.com/gin-gonic/gin v1.6.3

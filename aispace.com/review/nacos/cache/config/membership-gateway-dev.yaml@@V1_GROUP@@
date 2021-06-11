@@ -1,0 +1,110 @@
+server:
+  port: 8001
+
+spring:
+  sleuth:
+    trace-id128: true
+    sampler:
+      probability: 1.0
+    web:
+      skip-pattern: /autoconfig|/webjars/springfox-swagger-ui.*|/csrf.*|.*?api-docs|/management|/management/configprops|/configprops|/dump|/management/info|/info|/metrics.*|/mappings|/trace|/swagger.*|.*\\.png|.*\\.css|.*\\.js|.*\\.html|/favicon.ico|/hystrix.stream|/
+
+  cloud:
+    gateway:
+      httpclient:
+        connect-timeout: 20000
+        response-timeout: 20s
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true
+      routes:
+        - id: membership-bizapi-ap
+          uri: lb://membership-consumer-bizapi
+          predicates:
+            - Path=/m2/ap/api/**
+          filters:
+            - StripPrefix=0
+        - id: membership-bizapi-dp
+          uri: lb://membership-consumer-bizapi
+          predicates:
+            - Path=/m2/dp/api/**/**
+          filters:
+            - StripPrefix=0
+
+        - id: test
+          uri: lb://membership-consumer-bizapi
+          predicates:
+            - Path=/test/**
+          filters:
+            - StripPrefix=0
+
+        - id: membership-bizapi-alone
+          uri: lb://membership-consumer-bizapi
+          predicates:
+            - Path=/m2/base/api/**
+          filters:
+            - StripPrefix=0
+
+        - id: membership-cpapi
+          uri: lb://membership-consumer-cpapi
+          predicates:
+            - Path=/m2/api/**
+          filters:
+            - StripPrefix=0
+
+        - id: membership-integrateapi-platform
+          uri: lb://membership-consumer-integateapi
+          predicates:
+            - Path=/m2/openapi/**
+          filters:
+            - StripPrefix=0
+
+        - id: membership-common-auth
+          uri: lb://membership-common-auth
+          predicates:
+            - Path=/m2/uaa/**
+          filters:
+            - StripPrefix=1
+
+        - id: membership-consumer-pointsmall
+          uri: lb://membership-consumer-pointsmall
+          predicates:
+            - Path=/m2/mallapi/**
+          filters:
+            - StripPrefix=0
+
+exclude:
+  paths:
+    ap:
+    dp:
+    base:
+    api:
+    openapi: /m2/openapi/dmo/v1/user/login,/m2/openapi/platform/v1/login
+    uaa: /m2/uaa/oauth/token
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          semaphore:
+            maxConcurrentRequests: 120000
+      circuitBreaker:
+        sleepWindowInMilliseconds:  5000
+
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+logging:
+  level:
+    com.lingyue.membership.gateway: DEBUG
+
+system:
+  allowedOrigin: "*"
