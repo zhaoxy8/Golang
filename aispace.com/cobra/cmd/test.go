@@ -37,6 +37,7 @@ to quickly create a Cobra application.`,
 }
 
 func init() {
+	//logs 子命令的 子命令 kubectlB logs test -a
 	logsCmd.AddCommand(testCmd)
 
 	// Here you will define your flags and configuration settings.

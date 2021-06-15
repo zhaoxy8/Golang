@@ -38,7 +38,7 @@ var logsCmd = &cobra.Command{
 			return
 		}
 		fmt.Printf("命名空间: %s\n",namespace)
-		//logsCmd 子命令的其他传入参数这个参数是deployment
+		//logsCmd 子命令 其他传入参数  比如参数是deployment
 		fmt.Println(args)
 	},
 }
@@ -55,5 +55,6 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// logsCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// 添加一个选项-n namespace
 	logsCmd.Flags().StringP("namespace","n","default","helo message for namespace")
 }

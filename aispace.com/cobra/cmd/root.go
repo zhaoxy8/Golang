@@ -48,7 +48,7 @@ func init() {
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
-
+    // 设置全局命令 --kubeconfig
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "kubeconfig", "", "config file (default is $HOME/.clid.yaml)")
 
 	// Cobra also supports local flags, which will only run
