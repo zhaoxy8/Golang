@@ -1,0 +1,89 @@
+123.57.117.131 - [123.57.117.131] - - [10/May/2021:07:36:04 +0000] "GET /hvcob/cosySec?COSY-EU-100-2545uJOrsGYtQK1SLYJ5IYs9YtQi3ROj3HQ3Ao6CIj4Bn3QIMvQVZxHcV3AOQIMY05eWrXcV3OZYt3ROU1HcV3MYJ5vkQCjQkrgeDSQIMRc0MuJQ3AoWbOj3ROI3C5PoUxbOgmCx643xpX5UQkrDJgSVris8rYtQ%254CgFQIFT5O2Fri8fM8Ypc0SasfLY3Rg9C5SconLeOMcMx6BDWsbMYJ7%254DysQIFT5%2588ri8fMutac0Sas4GF3Rg9Ce1ZonLeOMZ2x6BDW%25J8YJ7%254bdiQIFT5%25NSri8fMFGWc0Sas8kW3Rg9CeY0onLeOgVbx6BDWLJIYJ7%2547ddQIFT572Kri8fMWzRc0SasJca3Rg9C5FqonLeOX92x6BDWB3TYJ7%254TOWQIFT5yxBri8fMT4Oc0SastIi3Rg9Cj%257onLeOMHAx6BDWmEbYJ5tr8JYtQRMax642PfsEYtQ35Hl9bG4lhYYJ5wdQRMZvcV3ysCris80cU0cV3ysCrisI5jZ6cV3y3JOc0C0os%25JPoUxqOD4onW3JOfsxuY7hwxvCQIMXPGYtQW3RO0QkrQAMsQIMIoUxSIXmonpJgc0CtYtQXB5x64vcV3nu9Sc02UTSris6uJQkrgHeizW8HhoYJ5xMaRoQkr%255= HTTP/1.1" 200 491046 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36" 1961 0.574 [default-cosycn-bmwgroup-com-default] 122.200.104.194:80 491046 0.574 200 724f2d11b278aa4eded6841e0365db20 gateway-dev.bmw-emall.cn [] "http_header_canary=-"
+
+123.57.117.133 - [123.57.117.133] - - [10/May/2021:07:54:25 +0000] "GET /hvcob/cosySec?COSY-EU-100-2545uJOrsGYtQK1SLYJ5IYs9YtQi3ROj3HQ3Ao6CIj4Bn3QIMvQVZxHcV3AOQIMY05eWrXcV3OZYt3ROU1HcV3MYJ5vkQCjQkrgeDSQIMRc0MuJQ3AoWbOj3ROI3C5PoUxbOgmCx643xpX5UQkrDJgSVris8rYtQ%254CgFQIFT5O2Fri8fM8Ypc0SasfLY3Rg9C5SconLeOMcMx6BDWsbMYJ7%254DysQIFT5%2588ri8fMutac0Sas4GF3Rg9Ce1ZonLeOMZ2x6BDW%25J8YJ7%254bdiQIFT5%25NSri8fMFGWc0Sas8kW3Rg9CeY0onLeOgVbx6BDWLJIYJ7%2547ddQIFT572Kri8fMWzRc0SasJca3Rg9C5FqonLeOX92x6BDWB3TYJ7%254TOWQIFT5yxBri8fMT4Oc0SastIi3Rg9Cj%257onLeOMHAx6BDWmEbYJ5tr8JYtQRMax642PfsEYtQ35Hl9bG4lhYYJ5wdQRMZvcV3ysCris80cU0cV3ysCrisI5jZ6cV3y3JOc0C0os%25JPoUxqOD4onW3JOfsxuY7hwxvCQIMXPGYtQW3RO0QkrQAMsQIMIoUxSIXmonpJgc0CtYtQXB5x64vcV3nu9Sc02UTSris6uJQkrgHeizW8HhoYJ5xMaRoQkr%255 HTTP/1.1" 400 362 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36" 1856 0.017 [default-cosycn-bmwgroup-com-default] 122.200.104.194:443 362 0.017 400 08fa5e29693a3d53ff24b969f11c98af gateway-dev.bmw-emall.cn [] "http_header_canary=-"
+
+
+123.57.117.133 - [123.57.117.133] - - [10/May/2021:08:02:05 +0000] "GET /hvcob/cosySec?COSY-EU-100-2545uJOrsGYtQK1SLYJ5IYs9YtQi3ROj3HQ3Ao6CIj4Bn3QIMvQVZxHcV3AOQIMY05eWrXcV3OZYt3ROU1HcV3MYJ5vkQCjQkrgeDSQIMRc0MuJQ3AoWbOj3ROI3C5PoUxbOgmCx643xpX5UQkrDJgSVris8rYtQ%254CgFQIFT5O2Fri8fM8Ypc0SasfLY3Rg9C5SconLeOMcMx6BDWsbMYJ7%254DysQIFT5%2588ri8fMutac0Sas4GF3Rg9Ce1ZonLeOMZ2x6BDW%25J8YJ7%254bdiQIFT5%25NSri8fMFGWc0Sas8kW3Rg9CeY0onLeOgVbx6BDWLJIYJ7%2547ddQIFT572Kri8fMWzRc0SasJca3Rg9C5FqonLeOX92x6BDWB3TYJ7%254TOWQIFT5yxBri8fMT4Oc0SastIi3Rg9Cj%257onLeOMHAx6BDWmEbYJ5tr8JYtQRMax642PfsEYtQ35Hl9bG4lhYYJ5wdQRMZvcV3ysCris80cU0cV3ysCrisI5jZ6cV3y3JOc0C0os%25JPoUxqOD4onW3JOfsxuY7hwxvCQIMXPGYtQW3RO0QkrQAMsQIMIoUxSIXmonpJgc0CtYtQXB5x64vcV3nu9Sc02UTSris6uJQkrgHeizW8HhoYJ5xMaRoQkr%255 HTTP/1.1" 200 868545 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.85 Safari/537.36" 1960 0.999 [default-cosycn-bmwgroup-com-default] 122.200.104.194:443 868545 1.000 200 29b1a08f5e0aef5a32c3c27061d66941 gateway-dev.bmw-emall.cn [] "http_header_canary=-"
+
+
+
+http://cosycn.bmwgroup.com/hvcob/cosySec?COSY-EU-100-2545uJOrsGYtQK1SLYJ5IYs9YtQi3ROj3HQ3Ao6CIj4Bn3QIMvQVZxHcV3AOQIMY05eWrXcV3OZYt3ROU1HcV3MYJ5vkQCjQkrgeDSQIMRc0MuJQ3AoWbOj3ROI3C5PoUxbOgmCx643xpX5UQkrDJgSVris8rYtQ%254CgFQIFT5O2Fri8fM8Ypc0SasfLY3Rg9C5SconLeOMcMx6BDWsbMYJ7%254DysQIFT5%2588ri8fMutac0Sas4GF3Rg9Ce1ZonLeOMZ2x6BDW%25J8YJ7%254bdiQIFT5%25NSri8fMFGWc0Sas8kW3Rg9CeY0onLeOgVbx6BDWLJIYJ7%2547ddQIFT572Kri8fMWzRc0SasJca3Rg9C5FqonLeOX92x6BDWB3TYJ7%254TOWQIFT5yxBri8fMT4Oc0SastIi3Rg9Cj%257onLeOMHAx6BDWmEbYJ5tr8JYtQRMax642PfsEYtQ35Hl9bG4lhYYJ5wdQRMZvcV3ysCris80cU0cV3ysCrisI5jZ6cV3y3JOc0C0os%25JPoUxqOD4onW3JOfsxuY7hwxvCQIMXPGYtQW3RO0QkrQAMsQIMIoUxSIXmonpJgc0CtYtQXB5x64vcV3nu9Sc02UTSris6uJQkrgHeizW8HhoYJ5xMaRoQkr%255
+https://cosycn.bmwgroup.com/?COSY-EU-100-2545uJOrsGYtQK1SLYJ5IYs9YtQi3ROj3HQ3Ao6CIj4Bn3QIMvQVZxHcV3AOQIMY05eWrXcV3OZYt3ROU1HcV3MYJ5vkQCjQkrgeDSQIMRc0MuJQ3AoWbOj3ROI3C5PoUxbOgmCx643xpX5UQkrDJgSVris8rYtQ%254CgFQIFT5O2Fri8fM8Ypc0SasfLY3Rg9C5SconLeOMcMx6BDWsbMYJ7%254DysQIFT5%2588ri8fMutac0Sas4GF3Rg9Ce1ZonLeOMZ2x6BDW%25J8YJ7%254bdiQIFT5%25NSri8fMFGWc0Sas8kW3Rg9CeY0onLeOgVbx6BDWLJIYJ7%2547ddQIFT572Kri8fMWzRc0SasJca3Rg9C5FqonLeOX92x6BDWB3TYJ7%254TOWQIFT5yxBri8fMT4Oc0SastIi3Rg9Cj%257onLeOMHAx6BDWmEbYJ5tr8JYtQRMax642PfsEYtQ35Hl9bG4lhYYJ5wdQRMZvcV3ysCris80cU0cV3ysCrisI5jZ6cV3y3JOc0C0os%25JPoUxqOD4onW3JOfsxuY7hwxvCQIMXPGYtQW3RO0QkrQAMsQIMIoUxSIXmonpJgc0CtYtQXB5x64vcV3nu9Sc02UTSris6uJQkrgHeizW8HhoYJ5xMaRoQkr%255=
+https://gateway-dev.bmw-emall.cn/hvcob/cosySec?COSY-EU-100-2545uJOrsGYtQK1SLYJ5IYs9YtQi3ROj3HQ3Ao6CIj4Bn3QIMvQVZxHcV3AOQIMY05eWrXcV3OZYt3ROU1HcV3MYJ5vkQCjQkrgeDSQIMRc0MuJQ3AoWbOj3ROI3C5PoUxbOgmCx643xpX5UQkrDJgSVris8rYtQ%254CgFQIFT5O2Fri8fM8Ypc0SasfLY3Rg9C5SconLeOMcMx6BDWsbMYJ7%254DysQIFT5%2588ri8fMutac0Sas4GF3Rg9Ce1ZonLeOMZ2x6BDW%25J8YJ7%254bdiQIFT5%25NSri8fMFGWc0Sas8kW3Rg9CeY0onLeOgVbx6BDWLJIYJ7%2547ddQIFT572Kri8fMWzRc0SasJca3Rg9C5FqonLeOX92x6BDWB3TYJ7%254TOWQIFT5yxBri8fMT4Oc0SastIi3Rg9Cj%257onLeOMHAx6BDWmEbYJ5tr8JYtQRMax642PfsEYtQ35Hl9bG4lhYYJ5wdQRMZvcV3ysCris80cU0cV3ysCrisI5jZ6cV3y3JOc0C0os%25JPoUxqOD4onW3JOfsxuY7hwxvCQIMXPGYtQW3RO0QkrQAMsQIMIoUxSIXmonpJgc0CtYtQXB5x64vcV3nu9Sc02UTSris6uJQkrgHeizW8HhoYJ5xMaRoQkr%255
+rewrite-target:
+nginx.ingress.kubernetes.io/rewrite-target: https://cosycn.bmwgroup.com
+
+
+nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+
+
+
+    nginx.ingress.kubernetes.io/server-snippet: |
+        add_header 'Cache-Control' 'public, max-age=604800';
+        add_header 'Access-Control-Allow-Credentials' 'true';
+        add_header 'Access-Control-Allow-Headers' 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST';
+        
+        
+        
+oss-hb2-m2-stg-04
+
+https://ps-media-stg.bmw-emall.cn/images/avatar.png
+
+
+
+
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    nginx.ingress.kubernetes.io/cors-allow-origin: '*'
+    nginx.ingress.kubernetes.io/server-snippet: |-
+      location /sisley/v1 {
+            proxy_pass https://cn-digital2-app-int.bmw.com.cn;
+            proxy_buffer_size 64k;
+            proxy_buffers   32 32k;
+            proxy_busy_buffers_size 128k;
+            proxy_connect_timeout      70;
+            proxy_read_timeout         70;
+            proxy_send_timeout         70;
+        }
+  creationTimestamp: "2021-05-21T08:33:11Z"
+  generation: 4
+  labels:
+    cattle.io/creator: norman
+  name: gateway-dev.bmw-emall.cn-sisley
+  namespace: default
+spec:
+  rules:
+  - host: gateway-dev.bmw-emall.cn
+    http:
+      paths:
+      - backend:
+          serviceName: cn-digital2-app-int-bmw-com-cn
+          servicePort: https
+        path: /abc
+  tls:
+  - hosts:
+    - gateway-dev.bmw-emall.cn
+    secretName: bmw-emall-cn
+
+
+
+
+
+redis:
+r-2zelevxizsycldsfq3.redis.rds.aliyuncs.com  6379
+
+mysql:
+192.168.99.0/24
+10.85.43.0/24
+106.38.102.34
+
+
+
+rm-2zedgbj38851zy6qr.mysql.rds.aliyuncs.com 3306
+
+questiondev XVJydBiMJov6$ofu
